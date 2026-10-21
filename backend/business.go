@@ -174,7 +174,17 @@ func (a *App) summary(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	year := date[:4]
-	all, e := a.records(year+"-01-01", fmt.Sprintf("%d-01-01", mustYear(year)+1), "")
+	d, _ := time.Parse("2006-01-02", date)
+	trendEnd := time.Date(d.Year(), d.Month()+1, 1, 0, 0, 0, 0, time.UTC)
+	trendStart := trendEnd.AddDate(-1, 0, 0)
+	months := make([]string, 12)
+	monthIndexes := map[string]int{}
+	for i := range months {
+		month := trendStart.AddDate(0, i, 0)
+		months[i] = fmt.Sprintf("%d月", month.Month())
+		monthIndexes[month.Format("2006-01")] = i
+	}
+	all, e := a.records(trendStart.Format("2006-01-02"), trendEnd.Format("2006-01-02"), "")
 	if e != nil {
 		fail(w, 500, "读取营收失败")
 		return
@@ -191,9 +201,10 @@ func (a *App) summary(w http.ResponseWriter, r *http.Request) {
 	}
 	total := int64(0)
 	visitors := 0
+	previousTotal, previousTicket, currentTicket := int64(0), int64(0), int64(0)
+	previousVisitors := 0
 	week := make([]float64, 7)
 	weekVisitors := make([]int, 7)
-	d, _ := time.Parse("2006-01-02", date)
 	weekStart := d.AddDate(0, 0, -(int(d.Weekday())+6)%7)
 	weekly, e := a.records(weekStart.Format("2006-01-02"), weekStart.AddDate(0, 0, 7).Format("2006-01-02"), "")
 	if e != nil {
@@ -213,13 +224,17 @@ func (a *App) summary(w http.ResponseWriter, r *http.Request) {
 		order := []string{}
 		for _, v := range all {
 			if v.Module == m.Key {
-				month, _ := strconv.Atoi(v.Date[5:7])
-				m.Trend[month-1] += float64(v.Cents) / 1e6
+				if month, ok := monthIndexes[v.Date[:7]]; ok {
+					m.Trend[month] += float64(v.Cents) / 1e6
+				}
 			}
 		}
 		for _, v := range previous {
 			if v.Module == m.Key {
 				old += v.Cents
+				if m.Enabled == 1 {
+					previousVisitors += v.Visitors
+				}
 			}
 		}
 		for _, v := range selected {
@@ -256,11 +271,29 @@ func (a *App) summary(w http.ResponseWriter, r *http.Request) {
 		if m.Enabled == 1 {
 			total += sum
 			visitors += m.Visitors
+			previousTotal += old
+			if m.Key == "ticket" {
+				currentTicket = sum
+				previousTicket = old
+			}
 		}
 	}
-	jsonOut(w, 200, map[string]any{"modules": mods, "total": float64(total) / 1e6, "visitors": visitors, "week": week, "weekVisitors": weekVisitors, "date": date, "from": start, "to": end, "year": year})
+	currentARPU, previousARPU := float64(0), float64(0)
+	if visitors > 0 {
+		currentARPU = float64(total) / float64(visitors)
+	}
+	if previousVisitors > 0 {
+		previousARPU = float64(previousTotal) / float64(previousVisitors)
+	}
+	mom := map[string]any{"total": growth(float64(total), float64(previousTotal)), "second": growth(float64(total-currentTicket), float64(previousTotal-previousTicket)), "visitors": growth(float64(visitors), float64(previousVisitors)), "arpu": growth(currentARPU, previousARPU)}
+	jsonOut(w, 200, map[string]any{"modules": mods, "total": float64(total) / 1e6, "visitors": visitors, "week": week, "weekVisitors": weekVisitors, "date": date, "from": start, "to": end, "year": year, "months": months, "trendFrom": trendStart.Format("2006-01"), "trendTo": d.Format("2006-01"), "mom": mom})
 }
-func mustYear(s string) int { n, _ := strconv.Atoi(s); return n }
+func growth(current, previous float64) any {
+	if previous == 0 {
+		return nil
+	}
+	return (current - previous) / previous * 100
+}
 func (a *App) saveRecords(vs []Record, actor string) error {
 	if len(vs) == 0 || len(vs) > 3000 {
 		return errors.New("每批提交 1-3000 条")

@@ -1,10 +1,15 @@
 # 项目上下文
 
 ## 当前目标
-原型完整复刻的营收统计系统，真实 Vben Admin + Go + 达梦 SZGCTRIP/REVENUESTATISTICSSYSTEM，统一认证，8027 发布。
+原型复刻营收统计系统，Vben Admin 5.7/Vue3 + Go + 达梦 SZGCTRIP/REVENUESTATISTICSSYSTEM，统一认证，8027 发布。
 
 ## 已核实
-源码目录初始为空；原型含综合看板、排行榜、九业态详情及系统设置。114 SSH EasyTier 可用，8027/8127 空闲。
+源码 D:\网站备份\寿县\14营收统计系统，GitHub yisqiu/RevenueStatisticsSystem（公开）。
+114 SSH EasyTier 可用；外部8027、后端127.0.0.1:8127。
+DBX已创建业务账号/Schema/六类表和14112条原型测试日报，另有3条验收日报。
+统一认证独立应用 app-revenuestatistics；RevenueStatisticsSystem.Access / RevenueStatisticsSystem.SuperAdmin。
+当前服务发布 /data/RevenueStatisticsSystem/releases/20261021-final，Nginx 主PID4328保持不变。
 
 ## 约定
-源码本地构建；SSH 使用 MCPSSH；数据库操作 DBX；凭据不进入 Git。原型配色和界面优先。
+Go仅本机构建；SSH使用MCPSSH；DB操作使用DBX；境外依赖/GitHub走7897代理；凭据不进入Git。
+本任务Chrome9223普通标签pageId=9，保持该标签复用。

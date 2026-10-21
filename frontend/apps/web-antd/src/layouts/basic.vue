@@ -38,7 +38,7 @@ watch(() => [preferences.app.watermark, preferences.app.watermarkContent, isDark
     <template #header-left-1><div class="revenue-heading"><h1>{{route.meta.title}}</h1><div>首页 · {{route.path.startsWith('/module/')?'经营模块':route.path==='/settings'||route.path==='/integrations'?'系统':'经营总览'}}</div></div></template>
     <template #header-right-1><RevenueFilters /></template>
     <template #user-dropdown>
-      <UserDropdown :avatar :menus :text="userStore.userInfo?.realName || userStore.userInfo?.username" :tag-text="String(userStore.userInfo?.role || '接待人员')" :description="`统一身份认证 · ${userStore.userInfo?.username}`" @logout="logout" @clear-preferences-and-logout="logout" />
+      <UserDropdown :avatar :menus :text="userStore.userInfo?.realName || userStore.userInfo?.username" :tag-text="String(userStore.userInfo?.role || '业务人员')" :description="`统一身份认证 · ${userStore.userInfo?.username}`" @logout="logout" @clear-preferences-and-logout="logout" />
     </template>
     <template #notification><Notification :dot="false" :notifications="[]" /></template>
     <template #lock-screen><LockScreen :avatar @to-login="logout" /></template>

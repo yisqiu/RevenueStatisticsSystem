@@ -2,12 +2,12 @@
  --ink:#2b2118;--ink-2:#4a3b2c;--paper:#f6f1e7;--paper-2:#fbf8f1;--brick:#a63a2b;--brick-d:#8a2f22;--gold:#b8863b;--gold-l:#d8b26a;--jade:#3f7d6e;--jade-l:#6aa392;--line:#e3d8c3;--muted:#8a7a63;--shadow:0 4px 20px rgba(60,45,25,.10);--shadow-lg:0 10px 40px rgba(60,45,25,.16);--up:#c0392b;--down:#2f7d4f;
  --background:40 45% 94%;--foreground:28 28% 13%;--header:42 55% 96%;--border:40 36% 83%;
 }
-body{font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;background:var(--paper)}
+body{font-synthesis:weight;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;background:var(--paper)}
 .bg-sidebar{background:linear-gradient(180deg,#3a2c1e,#2b2118)!important;border-right:3px solid var(--gold)!important}
 .bg-sidebar>div:first-of-type{height:186px!important;border-bottom:1px solid rgba(216,178,106,.22)}
 .bg-sidebar>div:first-of-type>div{height:100%!important}
 .bg-sidebar>div:first-of-type a{display:flex;flex-direction:column;width:100%;justify-content:center;gap:0;padding:18px 16px}
-.bg-sidebar>div:first-of-type a>span{width:64px!important;height:64px!important;background:#f3eddf!important;border:1.5px solid rgba(216,178,106,.4);border-radius:14px;padding:10px;box-shadow:0 4px 14px rgba(0,0,0,.35);margin-bottom:12px}
+.bg-sidebar>div:first-of-type a>div:first-child{width:64px!important;height:64px!important;background:#f3eddf!important;border:1.5px solid rgba(216,178,106,.4);border-radius:14px;padding:10px;box-shadow:0 4px 14px rgba(0,0,0,.35);margin-bottom:12px}
 .bg-sidebar>div:nth-of-type(2){height:calc(100% - 228px)!important}
 .revenue-brand{text-align:center;white-space:nowrap}.revenue-brand strong{display:block;color:#f3e9d4;font-size:19px;line-height:26px;letter-spacing:2px;font-family:"STKaiti","KaiTi","Songti SC",serif}.revenue-brand span{display:block;font-size:10px;letter-spacing:1.6px;color:#d8b26a;margin-top:6px}.revenue-brand small{display:inline-block;background:#a63a2b;color:#fff;font-size:11px;padding:2px 7px;border-radius:3px;margin-top:9px;letter-spacing:2px;font-family:"STKaiti","KaiTi",serif}
 .bg-sidebar .vben-menu{background:transparent!important;--menu-background-color:transparent!important;--menu-item-color:#cdbfa5!important;--menu-item-background-color:transparent!important;--menu-item-hover-color:#f3e9d4!important;--menu-item-hover-background-color:rgba(216,178,106,.09)!important;--menu-item-active-color:#fff!important;--menu-item-active-background-color:rgba(166,58,43,.28)!important;--menu-item-padding-x:20px!important;--menu-item-padding-y:11px!important;--menu-item-height:42px!important;--menu-item-margin-y:0px!important;font-size:13.5px}

@@ -1,7 +1,14 @@
 # 问题与风险
 
-## 待处理
-DBX 查询在 connect 阶段超时，用户已授权直接创建账号/Schema。需恢复有效管理连接后执行。
+## 已处理
+DBX初始connect超时，改用现场验证为SYSDBA的既有统一认证连接后恢复；账号/Schema创建成功。
+复制的Vben工作区首次pnpm add后脚本依赖不足，执行全工作区pnpm install --ignore-scripts及pnpm -r run stub --if-present后通过。
+Vue数字输入框自动把金额转换为数字，首次保存被后端拒绝；提交时显式String金额后真实保存通过。
+同地址hash导航不会刷新旧构建；部署后使用type=reload ignoreCache，实际重新认证成功。
+截图插件返回较慢，可用scripts/capture-task-tab.cjs连接同一个9223已有目标只读截图。
+目录删除初始化命令被自动审核拦截，改为将复制来的旧业务视图移至artifacts/reference-team-views。
 
-## 环境限制
-用户指定的 ~/.codex/templates/agent_memory 目录未找到，采用当前项目现有简洁结构。
+## 验收范围
+13路由早期快速遍历读到过渡内容，已改为等待目标标题和图表数量后逐页核对，全部通过。
+普通用户真实权限、线上中央撤权尚未扰动测试；已有Go授权与普通用户管理写拒绝测试。
+~/.codex/templates/agent_memory目录缺失，文档沿用简洁结构。
