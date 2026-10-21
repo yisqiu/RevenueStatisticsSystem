@@ -5,7 +5,7 @@ export const overridesPreferences = defineOverridesPreferences({
   header: { height: 66 },
   breadcrumb: { enable: false },
   logo: { source: '/revenue-logo.png', sourceDark: '/revenue-logo.png' },
-  sidebar: { width: 238, fixedButton: false },
+  sidebar: { width: 238, fixedButton: false, collapsedButton: false },
   navigation: { styleType: 'plain' },
   theme: { mode: 'light', colorPrimary: '#a63a2b', semiDarkSidebar: true, semiDarkSidebarColor: '#2b2118' },
   tabbar: { enable: false, styleType: 'chrome' },

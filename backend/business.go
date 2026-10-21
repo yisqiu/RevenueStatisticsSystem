@@ -29,18 +29,19 @@ type Record struct {
 	Cents    int64  `json:"-"`
 }
 type Module struct {
-	Key      string             `json:"key"`
-	Name     string             `json:"name"`
-	Icon     string             `json:"icon"`
-	Desc     string             `json:"desc"`
-	Cols     []string           `json:"cols"`
-	Enabled  int                `json:"enabled"`
-	Value    float64            `json:"value"`
-	Mom      float64            `json:"mom"`
-	Visitors int                `json:"visitors"`
-	Trend    []float64          `json:"trend"`
-	Rows     [][]any            `json:"rows"`
-	Struct   map[string]float64 `json:"struct"`
+	Key          string             `json:"key"`
+	Name         string             `json:"name"`
+	Icon         string             `json:"icon"`
+	Desc         string             `json:"desc"`
+	Cols         []string           `json:"cols"`
+	Enabled      int                `json:"enabled"`
+	Value        float64            `json:"value"`
+	Mom          any                `json:"mom"`
+	Visitors     int                `json:"visitors"`
+	Trend        []float64          `json:"trend"`
+	Rows         [][]any            `json:"rows"`
+	Struct       map[string]float64 `json:"struct"`
+	StructLabels []string           `json:"structLabels"`
 }
 
 func cents(s string) (int64, error) {
@@ -91,8 +92,8 @@ func bounds(r *http.Request) (string, string, string, string, error) {
 		date = time.Now().Format("2006-01-02")
 	}
 	d, e := time.Parse("2006-01-02", date)
-	if e != nil {
-		return "", "", "", "", e
+	if e != nil || d.Year() < 2000 || d.Year() > 2100 {
+		return "", "", "", "", errors.New("统计日期须在2000至2100年之间")
 	}
 	start := d
 	end := d.AddDate(0, 0, 1)
@@ -131,6 +132,7 @@ func (a *App) modules() ([]Module, error) {
 		m.Trend = make([]float64, 12)
 		m.Rows = [][]any{}
 		m.Struct = map[string]float64{}
+		m.StructLabels = append([]string{}, catalog[m.Key].Groups...)
 		out = append(out, m)
 	}
 	return out, rows.Err()
@@ -215,7 +217,9 @@ func (a *App) summary(w http.ResponseWriter, r *http.Request) {
 		vd, _ := time.Parse("2006-01-02", v.Date)
 		i := int(vd.Sub(weekStart).Hours() / 24)
 		week[i] += float64(v.Cents) / 1e6
-		weekVisitors[i] += v.Visitors
+		if humanVisits(v.Module) {
+			weekVisitors[i] += v.Visitors
+		}
 	}
 	for i := range mods {
 		m := &mods[i]
@@ -232,7 +236,7 @@ func (a *App) summary(w http.ResponseWriter, r *http.Request) {
 		for _, v := range previous {
 			if v.Module == m.Key {
 				old += v.Cents
-				if m.Enabled == 1 {
+				if m.Enabled == 1 && humanVisits(m.Key) {
 					previousVisitors += v.Visitors
 				}
 			}
@@ -252,8 +256,10 @@ func (a *App) summary(w http.ResponseWriter, r *http.Request) {
 			c.Cents += v.Cents
 		}
 		m.Value = float64(sum) / 1e6
-		if old > 0 {
-			m.Mom = float64(sum-old) / float64(old) * 100
+		m.Mom = growth(float64(sum), float64(old))
+		orderCategories(m.Key, order)
+		for _, group := range m.StructLabels {
+			m.Struct[group] = 0
 		}
 		for _, name := range order {
 			c := cats[name]
@@ -265,12 +271,18 @@ func (a *App) summary(w http.ResponseWriter, r *http.Request) {
 			if c.Quantity > 0 {
 				unit = float64(c.Cents) / 100 / float64(c.Quantity)
 			}
-			m.Struct[name] = pct
+			group := categoryGroup(m.Key, name)
+			if _, ok := m.Struct[group]; !ok {
+				m.StructLabels = append(m.StructLabels, group)
+			}
+			m.Struct[group] += pct
 			m.Rows = append(m.Rows, []any{name, c.Quantity, money(c.Cents), fmt.Sprintf("%.2f", unit), fmt.Sprintf("%.1f%%", pct)})
 		}
 		if m.Enabled == 1 {
 			total += sum
-			visitors += m.Visitors
+			if humanVisits(m.Key) {
+				visitors += m.Visitors
+			}
 			previousTotal += old
 			if m.Key == "ticket" {
 				currentTicket = sum
@@ -437,7 +449,7 @@ func (a *App) settings(w http.ResponseWriter, r *http.Request, id Identity) {
 		Department string `json:"department"`
 		Version    int    `json:"version"`
 	}
-	if decode(w, r, &v) != nil || len([]rune(v.Name)) < 1 || len([]rune(v.Name)) > 200 || len([]rune(v.Level)) > 300 || len([]rune(v.Department)) > 100 {
+	if decode(w, r, &v) != nil || strings.TrimSpace(v.Name) == "" || len([]rune(v.Name)) > 200 || len([]rune(v.Level)) > 300 || len([]rune(v.Department)) > 100 {
 		fail(w, 400, "设置内容无效")
 		return
 	}
@@ -485,7 +497,7 @@ func (a *App) integrations(w http.ResponseWriter, r *http.Request, id Identity) 
 			Module  string `json:"module"`
 			Enabled int    `json:"enabled"`
 		}
-		if decode(w, r, &v) != nil || len([]rune(v.Name)) < 1 || len([]rune(v.Name)) > 100 || (v.Enabled != 0 && v.Enabled != 1) {
+		if decode(w, r, &v) != nil || strings.TrimSpace(v.Name) == "" || len([]rune(v.Name)) > 100 || (v.Enabled != 0 && v.Enabled != 1) {
 			fail(w, 400, "接口配置无效")
 			return
 		}
@@ -496,7 +508,15 @@ func (a *App) integrations(w http.ResponseWriter, r *http.Request, id Identity) 
 			v.ID = random()
 			_, e = a.db.Exec("INSERT INTO "+schema+"INTEGRATIONS(ID,NAME,MODULE_KEY,TOKEN_HASH,ENABLED) VALUES(?,?,?,?,?)", v.ID, v.Name, v.Module, hashed(token), v.Enabled)
 		} else {
-			_, e = a.db.Exec("UPDATE "+schema+"INTEGRATIONS SET NAME=?,ENABLED=? WHERE ID=?", v.Name, v.Enabled, v.ID)
+			var res sql.Result
+			res, e = a.db.Exec("UPDATE "+schema+"INTEGRATIONS SET NAME=?,ENABLED=? WHERE ID=?", v.Name, v.Enabled, v.ID)
+			if e == nil {
+				n, err := res.RowsAffected()
+				if err != nil || n != 1 {
+					fail(w, 404, "接口配置不存在，请刷新")
+					return
+				}
+			}
 		}
 		if e != nil {
 			fail(w, 400, "保存失败，请核对业态")
@@ -575,6 +595,9 @@ func (a *App) export(w http.ResponseWriter, r *http.Request) {
 	if e != nil {
 		fail(w, 400, "日期无效")
 		return
+	}
+	if r.URL.Query().Get("all") == "1" {
+		start, end = "2000-01-01", "2101-01-01"
 	}
 	vs, e := a.records(start, end, r.URL.Query().Get("module"))
 	if e != nil {

@@ -70,3 +70,11 @@ func TestSettingsAndIntegrationRequireSuper(t *testing.T) {
 		}
 	}
 }
+
+func TestReviewDateBoundaries(t *testing.T) {
+	for _, q := range []string{"date=0001-01-01", "date=1999-12-31", "date=2101-01-01"} {
+		if _, _, _, _, e := bounds(httptest.NewRequest("GET", "/?"+q, nil)); e == nil {
+			t.Fatalf("invalid date accepted: %s", q)
+		}
+	}
+}

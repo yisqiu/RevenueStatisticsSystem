@@ -26,3 +26,4 @@ frontend/README*.md
 frontend/apps/web-antd/package-lock.json
 **/__pycache__/
 !frontend/apps/web-antd/public/revenue-logo.png
+!frontend/apps/web-antd/public/revenue-avatar.svg

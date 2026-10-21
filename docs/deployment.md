@@ -26,6 +26,8 @@ Casdoor 应用 `app-revenuestatistics`，组织 sx，回调 `http://cd.libeasy.c
 
 通过 MCPSSH 将 current 原子切回 `backups/previous-release-*.txt` 记录的已验证版本。若二进制有变化，重启 revenuestatistics.service；前端单独回退保持后端运行。若变更 Nginx，恢复对应备份，先 nginx -t，再 reload nginx。
 
-本次最终页面版本可以回退至 `/data/RevenueStatisticsSystem/releases/20261021-verified`。该回退只涉及应用文件，保留数据库日报。数据库结构变更应在变更前通过 DBX 另行备份并制定配套回退。
+2026-10-22当前页面版本：`/data/RevenueStatisticsSystem/releases/20261022-accepted`，前一版本记录在 `backups/previous-release-accepted.txt`。本次最终前端更新验证后端二进制一致并保持Go PID2706491。
+
+发布包SHA256：`d06f54038bbcb7430d0fef3d7220d669cf91e61dae835b13d39f4d098e36c983`。应用回退保留数据库日报；本轮文本字段扩容保持，以容纳已经保存的长中文文本。迁移SQL：`deploy/migration-20261021-text-capacity.sql`，旧结构保存在Git基线32736fd。
 
 验证：检查 `/api/health` 的数据库与 Schema、登录后的 `/api/summary`、真实页面图表和业务保存结果。
