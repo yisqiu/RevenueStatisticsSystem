@@ -14,7 +14,7 @@ const userStore = useUserStore();
         <DescriptionsItem label="业务角色">{{ userStore.userInfo?.role }}</DescriptionsItem>
         <DescriptionsItem label="认证方式">寿县统一身份认证</DescriptionsItem>
       </Descriptions>
-      <Button href="http://cd.libeasy.cn:8012/change-password" type="primary">修改统一认证密码</Button>
+      <Button href="http://cd.libeasy.cn:8012/account/password.html" type="primary">修改统一认证密码</Button>
     </Card>
   </Page>
 </template>

@@ -5,6 +5,7 @@ import { useUserStore } from '@vben/stores';
 import { message, Modal } from 'ant-design-vue';
 import RevenueChart from './chart.vue';
 import { date, range, search, today } from './filters';
+import { requestBlob, requestJson } from './request';
 
 type RevenueModule={key:string;name:string;icon:string;desc:string;cols:string[];enabled:number;value:number;mom:number|null;visitors:number;trend:number[];rows:(string|number)[][];structLabels:string[];struct:Record<string,number>};
 type RevenueRecord={id?:string;module:string;date:string;category:string;quantity:number;amount:string;visitors:number;source:string;note:string;version?:number};
@@ -52,18 +53,7 @@ function growthText(n:number|null){return n===null?'暂无对比':(n>=0?'▲ ':'
 function fmt(n:number|null){return n===null?'—':n.toLocaleString('zh-CN',{minimumFractionDigits:1,maximumFractionDigits:1})}
 function query(){return new URLSearchParams({date:date.value,range:range.value}).toString()}
 async function api<T>(url:string,init?:RequestInit):Promise<T>{
- const options:RequestInit={cache:'no-store',...init};
- for(let attempt=0;;attempt++){
-  try{
-   const res=await fetch('/api/'+url,options);
-   if(!res.ok){let text='操作失败';try{text=(await res.json()).message||text}catch{}if(res.status===401||res.status===403)window.dispatchEvent(new CustomEvent('team-auth-error',{detail:text}));throw new Error(text)}
-   return await res.json();
-  }catch(e){
-   if((options.method||'GET').toUpperCase()!=='GET'||!(e instanceof TypeError))throw e;
-   if(attempt>0)throw new Error('网络连接暂时中断，请检查连接后重新加载');
-   await new Promise(resolve=>setTimeout(resolve,250));
-  }
- }
+ return requestJson<T>('/api/'+url,init);
 }
 let loadSequence=0;
 async function load(){if(route.path!==pagePath)return;const sequence=++loadSequence;busy.value=true;error.value='';try{const [summary,config,interfaces]=await Promise.all([api<typeof data.value>('summary?'+query()),api<Settings>('settings'),route.path==='/integrations'&&canManageIntegration.value?api<Integration[]>('integrations'):Promise.resolve(undefined)]);if(sequence!==loadSequence)return;data.value=summary;settings.value=config;if(interfaces)integrations.value=interfaces}catch(e){if(sequence===loadSequence)error.value=(e as Error).message}finally{if(sequence===loadSequence)busy.value=false}}
@@ -73,9 +63,8 @@ async function saveRecord(){if(saving.value)return;saving.value=true;try{await a
 async function showRecords(){try{records.value=await api<RevenueRecord[]>('records?'+query()+(module.value?'&module='+module.value.key:''));recordListOpen.value=true}catch(e){message.error((e as Error).message)}}
 async function exportData(format:string,template=false,scope='current'){
  if(exporting.value)return;exporting.value=true;
- try{const response=await fetch('/api/export?'+(scope==='month'?new URLSearchParams({date:date.value,range:'month'}).toString():query())+'&format='+format+(scope==='all'?'&all=1':'')+(template?'&template=1':'')+(module.value?'&module='+module.value.key:''));
- if(!response.ok){let text='导出失败，请重试';try{text=(await response.json()).message||text}catch{}throw new Error(text)}
- const url=URL.createObjectURL(await response.blob()),link=document.createElement('a');link.href=url;link.download=template?'营收导入模板.xlsx':scope==='all'?'营收全部明细.csv':'营收明细.'+format;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);message.success('导出文件已生成');
+ try{const blob=await requestBlob('/api/export?'+(scope==='month'?new URLSearchParams({date:date.value,range:'month'}).toString():query())+'&format='+format+(scope==='all'?'&all=1':'')+(template?'&template=1':'')+(module.value?'&module='+module.value.key:''));
+ const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=template?'营收导入模板.xlsx':scope==='all'?'营收全部明细.csv':'营收明细.'+format;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);message.success('导出文件已生成');
  }catch(e){message.error((e as Error).message)}finally{exporting.value=false}
 }
 async function importFile(event:Event){const input=event.target as HTMLInputElement;const file=input.files?.[0];if(!file)return;const body=new FormData();body.append('file',file);saving.value=true;try{const out=await api<{imported:number}>('import',{method:'POST',body});message.success(`已导入 ${out.imported} 条日报`);await load()}catch(e){message.error((e as Error).message)}finally{saving.value=false;input.value=''}}

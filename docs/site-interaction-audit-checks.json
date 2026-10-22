@@ -1,0 +1,1070 @@
+{
+  "date": "2026-10-22",
+  "release": "20261022-site-audit",
+  "scope": "8027全站菜单、周期查询、弹窗、搜索与导出；密码链接只验证到达页面",
+  "baseline": {
+    "checks": [
+      {
+        "kind": "menu",
+        "path": "/ranking",
+        "heading": "营收排行榜",
+        "charts": 0,
+        "errors": [],
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/module/wenchuang",
+        "heading": "文创馆销售",
+        "charts": 2,
+        "errors": [],
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/module/naicha",
+        "heading": "豆乳奶茶销售",
+        "charts": 0,
+        "errors": [],
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/module/ticket",
+        "heading": "票务数据",
+        "charts": 2,
+        "errors": [],
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/module/hanfu",
+        "heading": "汉服体验馆销售",
+        "charts": 0,
+        "errors": [],
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/module/guide",
+        "heading": "讲解员接待销售",
+        "charts": 2,
+        "errors": [],
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/module/bus",
+        "heading": "游览车营收",
+        "charts": 0,
+        "errors": [],
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/module/hotel",
+        "heading": "酒店民宿销售",
+        "charts": 2,
+        "errors": [],
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/module/park",
+        "heading": "停车场营收",
+        "charts": 0,
+        "errors": [],
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/module/online",
+        "heading": "线上文创点铺营收",
+        "charts": 2,
+        "errors": [],
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/settings",
+        "heading": "系统设置",
+        "charts": 0,
+        "errors": [],
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/integrations",
+        "heading": "接口对接",
+        "charts": 0,
+        "errors": [],
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/system",
+        "heading": "系统管理",
+        "charts": 0,
+        "errors": [],
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/dashboard",
+        "heading": "综合数据看板",
+        "charts": 4,
+        "errors": [],
+        "ok": true
+      },
+      {
+        "kind": "module-interactions",
+        "key": "wenchuang",
+        "periods": 3,
+        "charts": 2,
+        "records": 147,
+        "newFront": true,
+        "editFront": true,
+        "listRetained": true,
+        "ok": true
+      },
+      {
+        "kind": "module-interactions",
+        "key": "naicha",
+        "periods": 3,
+        "charts": 2,
+        "records": 147,
+        "newFront": true,
+        "editFront": true,
+        "listRetained": true,
+        "ok": true
+      },
+      {
+        "kind": "module-interactions",
+        "key": "ticket",
+        "periods": 3,
+        "charts": 2,
+        "records": 129,
+        "newFront": true,
+        "editFront": true,
+        "listRetained": true,
+        "ok": true
+      },
+      {
+        "kind": "module-interactions",
+        "key": "hanfu",
+        "periods": 3,
+        "charts": 2,
+        "records": 126,
+        "newFront": true,
+        "editFront": true,
+        "listRetained": true,
+        "ok": true
+      },
+      {
+        "kind": "module-interactions",
+        "key": "guide",
+        "periods": 3,
+        "charts": 2,
+        "records": 126,
+        "newFront": true,
+        "editFront": true,
+        "listRetained": true,
+        "ok": true
+      },
+      {
+        "kind": "module-interactions",
+        "key": "bus",
+        "periods": 3,
+        "charts": 2,
+        "records": 126,
+        "newFront": true,
+        "editFront": true,
+        "listRetained": true,
+        "ok": true
+      },
+      {
+        "kind": "module-interactions",
+        "key": "hotel",
+        "periods": 3,
+        "charts": 2,
+        "records": 126,
+        "newFront": true,
+        "editFront": true,
+        "listRetained": true,
+        "ok": true
+      },
+      {
+        "kind": "module-interactions",
+        "key": "park",
+        "periods": 3,
+        "charts": 2,
+        "records": 126,
+        "newFront": true,
+        "editFront": true,
+        "listRetained": true,
+        "ok": true
+      },
+      {
+        "kind": "module-interactions",
+        "key": "online",
+        "periods": 3,
+        "charts": 2,
+        "records": 126,
+        "newFront": true,
+        "editFront": true,
+        "listRetained": true,
+        "ok": true
+      },
+      {
+        "kind": "settings-modal",
+        "iteration": 0,
+        "ok": true
+      },
+      {
+        "kind": "settings-modal",
+        "iteration": 1,
+        "ok": true
+      },
+      {
+        "kind": "settings-record-edit",
+        "ok": true
+      },
+      {
+        "kind": "integration-modal",
+        "action": "新增对接系统",
+        "ok": true,
+        "fixedModule": false
+      },
+      {
+        "kind": "integration-modal",
+        "action": "编辑",
+        "ok": true,
+        "fixedModule": true
+      },
+      {
+        "kind": "integration-modal",
+        "action": "新增对接系统",
+        "ok": true,
+        "fixedModule": false
+      },
+      {
+        "kind": "binding-modal",
+        "ok": true
+      },
+      {
+        "kind": "binding-select",
+        "ok": true
+      },
+      {
+        "kind": "role-modal",
+        "action": "新增角色",
+        "ok": true
+      },
+      {
+        "kind": "role-modal",
+        "action": "配置权限",
+        "ok": true
+      },
+      {
+        "kind": "role-modal",
+        "action": "查看权限",
+        "ok": true
+      },
+      {
+        "kind": "role-modal",
+        "action": "配置权限",
+        "ok": true
+      },
+      {
+        "kind": "status-confirm-cancel",
+        "ok": true
+      },
+      {
+        "kind": "logs-load",
+        "ok": true,
+        "rows": 15
+      },
+      {
+        "kind": "integration-read-test",
+        "ok": true,
+        "contentKeys": [
+          "authentication",
+          "endpoint",
+          "idempotency",
+          "method",
+          "mode",
+          "record"
+        ]
+      },
+      {
+        "kind": "baseline-system-network",
+        "calls": 1,
+        "error": "Failed to fetch重试"
+      },
+      {
+        "kind": "baseline-system-invalid-body",
+        "calls": 1,
+        "error": "",
+        "runtimeErrors": [],
+        "users": 0
+      },
+      {
+        "kind": "baseline-system-invalid-body",
+        "runtimeErrors": [],
+        "rendered": false,
+        "visibleErrors": []
+      },
+      {
+        "kind": "baseline-export-network",
+        "calls": 1,
+        "notice": [
+          "Failed to fetch"
+        ]
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 10948,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 10908,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 10431,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 10148,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 10123,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 10139,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 10155,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 10117,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 10133,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 44622,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收导入模板.xlsx",
+        "bytes": 6387,
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "settings-log-download",
+        "name": "营收明细.xlsx",
+        "bytes": 44622,
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "settings-log-download",
+        "name": "营收全部明细.csv",
+        "bytes": 1730945,
+        "signature": [
+          239,
+          187,
+          191
+        ],
+        "ok": true
+      },
+      {
+        "kind": "settings-log-download",
+        "name": "营收导入模板.xlsx",
+        "bytes": 6387,
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "settings-log-download",
+        "name": "营收统计系统操作日志.csv",
+        "bytes": 8831,
+        "signature": [
+          239,
+          187,
+          191
+        ],
+        "ok": true
+      },
+      {
+        "kind": "dashboard-card",
+        "key": "wenchuang",
+        "ok": true
+      },
+      {
+        "kind": "dashboard-card",
+        "key": "naicha",
+        "ok": true
+      },
+      {
+        "kind": "dashboard-card",
+        "key": "ticket",
+        "ok": true
+      },
+      {
+        "kind": "dashboard-card",
+        "key": "hanfu",
+        "ok": true
+      },
+      {
+        "kind": "dashboard-card",
+        "key": "guide",
+        "ok": true
+      },
+      {
+        "kind": "dashboard-card",
+        "key": "bus",
+        "ok": true
+      },
+      {
+        "kind": "dashboard-card",
+        "key": "hotel",
+        "ok": true
+      },
+      {
+        "kind": "dashboard-card",
+        "key": "park",
+        "ok": true
+      },
+      {
+        "kind": "dashboard-card",
+        "key": "online",
+        "ok": true
+      },
+      {
+        "kind": "extra-periods",
+        "path": "/ranking",
+        "ok": true
+      },
+      {
+        "kind": "extra-periods",
+        "path": "/settings",
+        "ok": true
+      },
+      {
+        "kind": "extra-periods",
+        "path": "/integrations",
+        "ok": true
+      },
+      {
+        "kind": "user-search-empty",
+        "ok": true
+      },
+      {
+        "kind": "logs-search-empty",
+        "ok": true
+      },
+      {
+        "kind": "logs-pagination",
+        "ok": true
+      }
+    ],
+    "actualRequestCount": 239,
+    "actualRequestFailures": []
+  },
+  "published": {
+    "checks": [
+      {
+        "kind": "system-recovery",
+        "mode": "transient-fetch",
+        "calls": 2,
+        "error": "",
+        "retained": true,
+        "ok": true
+      },
+      {
+        "kind": "system-recovery",
+        "mode": "transient-body",
+        "calls": 2,
+        "error": "",
+        "retained": true,
+        "ok": true
+      },
+      {
+        "kind": "system-recovery",
+        "mode": "persistent-fetch",
+        "calls": 2,
+        "error": "网络连接暂时中断，请检查连接后重新加载重试",
+        "retained": true,
+        "ok": true
+      },
+      {
+        "kind": "system-recovery",
+        "mode": "invalid-json",
+        "calls": 2,
+        "error": "服务返回的数据异常，请重新加载重试",
+        "retained": true,
+        "ok": true
+      },
+      {
+        "kind": "search-keyboard",
+        "ok": true
+      },
+      {
+        "kind": "write-network-no-retry",
+        "calls": 1,
+        "error": "操作响应读取失败，请刷新页面核对操作结果",
+        "ok": true
+      },
+      {
+        "kind": "export-recovery",
+        "mode": "transient-fetch",
+        "calls": 2,
+        "downloads": 1,
+        "ok": true
+      },
+      {
+        "kind": "export-recovery",
+        "mode": "transient-body",
+        "calls": 2,
+        "downloads": 1,
+        "ok": true
+      },
+      {
+        "kind": "export-recovery",
+        "mode": "persistent-fetch",
+        "calls": 2,
+        "downloads": 0,
+        "ok": true
+      },
+      {
+        "kind": "export-recovery",
+        "mode": "http-error",
+        "calls": 1,
+        "downloads": 0,
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/dashboard",
+        "heading": "综合数据看板",
+        "charts": 4,
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/ranking",
+        "heading": "营收排行榜",
+        "charts": 1,
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/module/wenchuang",
+        "heading": "文创馆销售",
+        "charts": 2,
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/module/naicha",
+        "heading": "豆乳奶茶销售",
+        "charts": 2,
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/module/ticket",
+        "heading": "票务数据",
+        "charts": 2,
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/module/hanfu",
+        "heading": "汉服体验馆销售",
+        "charts": 2,
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/module/guide",
+        "heading": "讲解员接待销售",
+        "charts": 2,
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/module/bus",
+        "heading": "游览车营收",
+        "charts": 2,
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/module/hotel",
+        "heading": "酒店民宿销售",
+        "charts": 2,
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/module/park",
+        "heading": "停车场营收",
+        "charts": 2,
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/module/online",
+        "heading": "线上文创点铺营收",
+        "charts": 2,
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/settings",
+        "heading": "系统设置",
+        "charts": 0,
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/integrations",
+        "heading": "接口对接",
+        "charts": 0,
+        "ok": true
+      },
+      {
+        "kind": "menu",
+        "path": "/system",
+        "heading": "系统管理",
+        "charts": 0,
+        "ok": true
+      },
+      {
+        "kind": "module-interactions",
+        "key": "wenchuang",
+        "periods": 3,
+        "newFront": true,
+        "editFront": true,
+        "listRetained": true,
+        "ok": true
+      },
+      {
+        "kind": "module-interactions",
+        "key": "naicha",
+        "periods": 3,
+        "newFront": true,
+        "editFront": true,
+        "listRetained": true,
+        "ok": true
+      },
+      {
+        "kind": "module-interactions",
+        "key": "ticket",
+        "periods": 3,
+        "newFront": true,
+        "editFront": true,
+        "listRetained": true,
+        "ok": true
+      },
+      {
+        "kind": "module-interactions",
+        "key": "hanfu",
+        "periods": 3,
+        "newFront": true,
+        "editFront": true,
+        "listRetained": true,
+        "ok": true
+      },
+      {
+        "kind": "module-interactions",
+        "key": "guide",
+        "periods": 3,
+        "newFront": true,
+        "editFront": true,
+        "listRetained": true,
+        "ok": true
+      },
+      {
+        "kind": "module-interactions",
+        "key": "bus",
+        "periods": 3,
+        "newFront": true,
+        "editFront": true,
+        "listRetained": true,
+        "ok": true
+      },
+      {
+        "kind": "module-interactions",
+        "key": "hotel",
+        "periods": 3,
+        "newFront": true,
+        "editFront": true,
+        "listRetained": true,
+        "ok": true
+      },
+      {
+        "kind": "module-interactions",
+        "key": "park",
+        "periods": 3,
+        "newFront": true,
+        "editFront": true,
+        "listRetained": true,
+        "ok": true
+      },
+      {
+        "kind": "module-interactions",
+        "key": "online",
+        "periods": 3,
+        "newFront": true,
+        "editFront": true,
+        "listRetained": true,
+        "ok": true
+      },
+      {
+        "kind": "other-modal",
+        "title": "景区基础信息",
+        "ok": true
+      },
+      {
+        "kind": "other-modal",
+        "title": "新增日报数据",
+        "ok": true
+      },
+      {
+        "kind": "other-modal",
+        "title": "设置页日报编辑",
+        "ok": true
+      },
+      {
+        "kind": "other-modal",
+        "title": "新增对接系统",
+        "ok": true
+      },
+      {
+        "kind": "other-modal",
+        "title": "编辑",
+        "ok": true
+      },
+      {
+        "kind": "other-modal",
+        "title": "新增系统用户",
+        "ok": true
+      },
+      {
+        "kind": "other-modal",
+        "title": "新增角色",
+        "ok": true
+      },
+      {
+        "kind": "other-modal",
+        "title": "配置角色权限",
+        "ok": true
+      },
+      {
+        "kind": "other-modal",
+        "title": "超级管理员权限",
+        "ok": true
+      },
+      {
+        "kind": "legacy-redirect",
+        "ok": true
+      },
+      {
+        "kind": "search-click",
+        "search": "豆乳",
+        "ok": true
+      },
+      {
+        "kind": "search-click",
+        "search": "2026-10-01",
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 10948,
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 10908,
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 10431,
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 10148,
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 10123,
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 10139,
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 10155,
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 10117,
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 10133,
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收明细.xlsx",
+        "bytes": 44622,
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收全部明细.csv",
+        "bytes": 1730945,
+        "signature": [
+          239,
+          187,
+          191
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收导入模板.xlsx",
+        "bytes": 6387,
+        "signature": [
+          80,
+          75,
+          3
+        ],
+        "ok": true
+      },
+      {
+        "kind": "download",
+        "name": "营收统计系统操作日志.csv",
+        "bytes": 8831,
+        "signature": [
+          239,
+          187,
+          191
+        ],
+        "ok": true
+      },
+      {
+        "kind": "logs-network-recovery",
+        "calls": 2,
+        "ok": true
+      },
+      {
+        "kind": "logs-filter-empty",
+        "ok": true
+      },
+      {
+        "kind": "logs-pagination",
+        "ok": true
+      },
+      {
+        "kind": "profile",
+        "ok": true
+      }
+    ],
+    "actualRequestCount": 174,
+    "actualRequestFailures": [],
+    "runtimeErrors": [],
+    "consoleErrors": [],
+    "passwordEntry": {
+      "url": "http://cd.libeasy.cn:8012/account/password.html",
+      "title": "修改密码 · 统一身份认证",
+      "labels": [
+        "原密码",
+        "新密码",
+        "确认新密码"
+      ],
+      "passwordFields": 3,
+      "currentAccountShown": true,
+      "submitted": false
+    }
+  },
+  "testNotes": [
+    "网络断连、损坏JSON、HTTP503和写请求失败为任务标签页内故障注入，真实服务器未断网。",
+    "下载读取真实HTTP响应及Blob文件签名；浏览器保存动作被拦截以免批量下载，未校验每个业务单元格。",
+    "写请求网络失败由页面拦截，真实业务数据、角色、账号状态及密码未变更。",
+    "基础认证保持既有会话，本轮未执行真实普通账号登录、真实密码修改或保存业务数据。"
+  ]
+}

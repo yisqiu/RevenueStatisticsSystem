@@ -2,6 +2,7 @@
 import { computed, nextTick, onMounted, reactive, ref, watch } from 'vue';
 import { Modal, Select, message } from 'ant-design-vue';
 import { systemApi as api } from './system-service';
+import { requestBlob } from './request';
 
 type Role = { code: string; name: string; description: string; permissions: string[]; enabled: boolean; builtIn: boolean; isSuperAdmin: boolean; version: number; members: number };
 type User = { subject: string; username: string; displayName: string; phone: string; lastLogin: string; roles: string[]; enabled: boolean; version: number; isSuperAdmin: boolean; centralAllowed: boolean };
@@ -105,7 +106,7 @@ function changeLogPage(delta: number) { logPage.value += delta; void loadLogs();
 async function exportLogs() {
   if (logExporting.value) return;
   logExporting.value = true;
-  try { const response = await fetch(`/api/system/logs/export?${logQuery()}`, { cache: 'no-store' }); if (!response.ok) { const result = await response.json(); throw new Error(result.message || '日志导出失败'); } const blob = await response.blob(); const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = '营收统计系统操作日志.csv'; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); message.success('日志已导出'); }
+  try { const blob = await requestBlob(`/api/system/logs/export?${logQuery()}`); const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = '营收统计系统操作日志.csv'; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); message.success('日志已导出'); }
   catch (e) { message.error((e as Error).message); }
   finally { logExporting.value = false; }
 }
