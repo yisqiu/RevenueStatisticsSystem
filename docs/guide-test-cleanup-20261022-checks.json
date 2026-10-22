@@ -1,0 +1,169 @@
+{
+  "date": "2026-10-22",
+  "instance": "SZGCTRIP",
+  "schema": "REVENUESTATISTICSSYSTEM",
+  "module": "guide",
+  "deleted": 1512,
+  "remainingGuide": 0,
+  "remainingAll": 12603,
+  "backup": "artifacts/guide-cleanup-20261022/records-backup.json",
+  "backupSHA256": "84b339edeba3d5c6e67cb59c4206857f2254e6bc7b780d25316946e9c4b80b84",
+  "restore": "artifacts/guide-cleanup-20261022/restore.sql",
+  "restoreSHA256": "c00b51c4526f810592df1f55fbb816cd557e3aeaeb09824ea4e2fc450ab74c9d",
+  "before": [
+    [
+      "bus",
+      1512,
+      490000000,
+      539742,
+      617400
+    ],
+    [
+      "guide",
+      1512,
+      214000000,
+      88095,
+      70182
+    ],
+    [
+      "hanfu",
+      1512,
+      388000000,
+      95424,
+      97776
+    ],
+    [
+      "hotel",
+      1512,
+      1331000000,
+      53130,
+      48510
+    ],
+    [
+      "naicha",
+      1764,
+      617000000,
+      652092,
+      548016
+    ],
+    [
+      "online",
+      1512,
+      444000000,
+      142926,
+      144270
+    ],
+    [
+      "park",
+      1512,
+      281000000,
+      472857,
+      467208
+    ],
+    [
+      "ticket",
+      1515,
+      2997018002,
+      1426431,
+      2056200
+    ],
+    [
+      "wenchuang",
+      1764,
+      969000000,
+      132930,
+      259014
+    ]
+  ],
+  "after": [
+    [
+      "bus",
+      1512,
+      490000000,
+      539742,
+      617400
+    ],
+    [
+      "hanfu",
+      1512,
+      388000000,
+      95424,
+      97776
+    ],
+    [
+      "hotel",
+      1512,
+      1331000000,
+      53130,
+      48510
+    ],
+    [
+      "naicha",
+      1764,
+      617000000,
+      652092,
+      548016
+    ],
+    [
+      "online",
+      1512,
+      444000000,
+      142926,
+      144270
+    ],
+    [
+      "park",
+      1512,
+      281000000,
+      472857,
+      467208
+    ],
+    [
+      "ticket",
+      1515,
+      2997018002,
+      1426431,
+      2056200
+    ],
+    [
+      "wenchuang",
+      1764,
+      969000000,
+      132930,
+      259014
+    ]
+  ],
+  "browser": {
+    "results": [
+      {
+        "period": "本日",
+        "status": 200,
+        "value": 0,
+        "visitors": 0,
+        "zeroTrend": true,
+        "ok": true
+      },
+      {
+        "period": "本月",
+        "status": 200,
+        "value": 0,
+        "visitors": 0,
+        "zeroTrend": true,
+        "ok": true
+      },
+      {
+        "period": "本年",
+        "status": 200,
+        "value": 0,
+        "visitors": 0,
+        "zeroTrend": true,
+        "ok": true
+      }
+    ],
+    "listEmpty": true,
+    "charts": 2,
+    "error": "",
+    "recordsApiCount": 0
+  },
+  "auditId": "cleanup-guide-seed-20261022"
+}
