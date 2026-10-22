@@ -1,0 +1,117 @@
+{
+  "date": "2026-10-22",
+  "checks": [
+    {
+      "name": "sync",
+      "syncCount": 3,
+      "rolePreserved": true,
+      "statusPreserved": true,
+      "lastLoginPreserved": true,
+      "syncTimestamp": true
+    },
+    {
+      "name": "user-filters-pagination-tabs",
+      "firstPage": 10,
+      "total": "共 15 人 · 第 1/2 页",
+      "nextPage": 5,
+      "nextText": "共 15 人 · 第 2/2 页",
+      "search": 1,
+      "searchPreserved": true,
+      "roleFilter": "共 12 人",
+      "emptyStatus": 0,
+      "keyboardEnd": "system-tab-logs",
+      "keyboardHome": "system-tab-users"
+    },
+    {
+      "name": "role-create",
+      "cancelClosed": true,
+      "created": true,
+      "independentEditButtons": 0
+    },
+    {
+      "name": "role-edit-protection",
+      "duplicateRejected": true,
+      "codeLocked": true,
+      "configured": true,
+      "superReadonly": true
+    },
+    {
+      "name": "user-multirole-save",
+      "roles": [
+        "sm_ui_role",
+        "viewer"
+      ],
+      "version": 2
+    },
+    {
+      "name": "user-disable-sync",
+      "cancelPreserved": true,
+      "disabled": true,
+      "rolesPreserved": true,
+      "lastLoginEmpty": true
+    },
+    {
+      "name": "role-disable-members",
+      "disabled": true,
+      "members": 1
+    },
+    {
+      "name": "disabled-role-unbind",
+      "disabledRoleRemovable": true,
+      "boundRoleDeleteRejected": true,
+      "rolesAfterSave": [
+        "viewer"
+      ]
+    },
+    {
+      "name": "role-enable-delete",
+      "enabledAgain": true,
+      "cancelPreserved": true,
+      "deleted": true
+    },
+    {
+      "name": "bind-dialog-real-account-cancel",
+      "onlyOrdinaryPermitted": true,
+      "existingRolePreselected": true,
+      "cancelKeptVersion": true,
+      "roles": [
+        "editor"
+      ]
+    },
+    {
+      "name": "logs-filters-pagination",
+      "firstRows": 15,
+      "info": "共 30 条 · 第 1/2 页",
+      "page2": "共 30 条 · 第 2/2 页",
+      "size30Rows": 30,
+      "filteredRows": 5,
+      "filteredModules": true,
+      "deletedRoleNamePresent": true
+    },
+    {
+      "name": "logs-export-empty-reset",
+      "export": {
+        "status": 200,
+        "bom": true,
+        "rows": 5,
+        "header": "操作时间,操作人,模块,操作,记录编号,详情",
+        "textDecodedBomRemoved": true
+      },
+      "preserved": true,
+      "empty": true,
+      "invalidDate": true,
+      "reset": true
+    },
+    {
+      "name": "log-export-byte-verification",
+      "status": 200,
+      "prefix": [
+        239,
+        187,
+        191
+      ],
+      "bom": true,
+      "bytes": 5731
+    }
+  ]
+}

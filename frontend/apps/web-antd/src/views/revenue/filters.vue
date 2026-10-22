@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '@vben/stores';
 import { date,range,search } from './filters';
-const router=useRouter(),open=ref(false);
+const router=useRouter(),open=ref(false),userStore=useUserStore();
 const routes=[['综合数据看板','/dashboard'],['营收排行榜','/ranking'],['文创馆销售','/module/wenchuang'],['豆乳奶茶销售','/module/naicha'],['票务数据','/module/ticket'],['汉服体验馆销售','/module/hanfu'],['讲解员接待销售','/module/guide'],['游览车营收','/module/bus'],['酒店民宿销售','/module/hotel'],['停车场营收','/module/park'],['线上文创点铺营收','/module/online'],['系统设置 / 报表导出','/settings'],['接口对接','/integrations']];
-const matches=computed(()=>search.value?routes.filter(r=>r[0]?.includes(search.value)):[]);
+const matches=computed(()=>search.value?routes.filter(r=>r[0]?.includes(search.value) && (r[1]!=='/system'||userStore.userInfo?.super) && (r[1]!=='/integrations'||userStore.userInfo?.super||(userStore.userInfo?.permissions as string[]|undefined)?.includes('Integration.Manage'))):[]);
+routes.push(['系统管理','/system']);
 const dateMatch=computed(()=>{const d=new Date(search.value+'T00:00:00Z');return /^(20\d{2}|2100)-\d{2}-\d{2}$/.test(search.value)&&Number.isFinite(d.getTime())&&d.toISOString().slice(0,10)===search.value});
 function go(path:string){open.value=false;search.value='';router.push(path)}
 function applyDate(){date.value=search.value;search.value='';open.value=false}

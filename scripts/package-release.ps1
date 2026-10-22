@@ -6,6 +6,8 @@ Copy-Item -LiteralPath (Join-Path $project 'artifacts\revenuestatistics') -Desti
 Copy-Item -Path (Join-Path $project 'frontend\apps\web-antd\dist\*') -Destination (Join-Path $stage 'web') -Recurse -Force
 Copy-Item -Path (Join-Path $project 'deploy\*.conf'),(Join-Path $project 'deploy\*.service') -Destination (Join-Path $stage 'deploy') -Force
 Copy-Item -LiteralPath (Join-Path $project 'scripts\register-identity.py') -Destination (Join-Path $stage 'register-identity.py')
+Copy-Item -LiteralPath (Join-Path $project 'scripts\activate-release.sh') -Destination (Join-Path $stage 'activate-release.sh')
+Copy-Item -LiteralPath (Join-Path $project 'deploy\20261022-system-management.sql') -Destination (Join-Path $stage 'deploy')
 $files=Get-ChildItem -LiteralPath $stage -File -Recurse | Where-Object Name -ne 'manifest.json' | ForEach-Object { [pscustomobject]@{path=[IO.Path]::GetRelativePath($stage,$_.FullName).Replace('\','/');sha256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()} }
 $files | ConvertTo-Json -Depth 3 | Set-Content -LiteralPath (Join-Path $stage 'manifest.json') -Encoding utf8
 $release=Join-Path $project 'artifacts\transfer\revenuestatistics-release.tgz'

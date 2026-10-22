@@ -36,9 +36,10 @@ type Session struct {
 	Revision                  uint64
 }
 type Identity struct {
-	Sub, Name, Display string
-	Super              bool
-	Role               string
+	Sub, Name, Display     string
+	Super                  bool
+	Role                   string
+	Permissions, RoleNames []string
 }
 
 func env(k, d string) string {
@@ -133,6 +134,12 @@ func (a *App) authorized(next func(http.ResponseWriter, *http.Request, Identity)
 			delete(a.sessions, hashedCookie(r))
 			a.mu.Unlock()
 			fail(w, 403, "统一认证不可用或应用授权已撤销，请重新登录")
+			return
+		}
+		id, e = a.localRole(r.Context(), id)
+		if e != nil {
+			a.invalidateUsers([]string{s.Sub})
+			fail(w, 403, "本系统用户已停用或尚未分配有效角色，请联系管理员")
 			return
 		}
 		if r.Method != "GET" && !originOK(r) {

@@ -37,7 +37,7 @@ watch(() => [preferences.app.watermark, preferences.app.watermarkContent, isDark
     <template #logo-text>
       <div class="revenue-brand"><strong>寿县古城景区</strong><span>SHOUXIAN ANCIENT CITY</span><small>营收统计系统</small></div>
     </template>
-    <template #header-left-1><div class="revenue-heading"><h1>{{pageTitle}}</h1><div>首页 · {{route.path.startsWith('/module/')?'经营模块 · '+pageTitle:route.path==='/settings'||route.path==='/integrations'?'系统':'经营总览'}}</div></div></template>
+    <template #header-left-1><div class="revenue-heading"><h1>{{pageTitle}}</h1><div>首页 · {{route.path.startsWith('/module/')?'经营模块 · '+pageTitle:['/settings','/integrations','/system'].includes(route.path)?'系统':'经营总览'}}</div></div></template>
     <template #header-right-1><RevenueFilters /></template>
     <template #user-dropdown>
       <UserDropdown :avatar :menus :text="userStore.userInfo?.realName || userStore.userInfo?.username" :tag-text="String(userStore.userInfo?.role || '业务人员')" :description="`统一身份认证 · ${userStore.userInfo?.username}`" @logout="logout" @clear-preferences-and-logout="logout" />

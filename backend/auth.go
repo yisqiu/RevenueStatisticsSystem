@@ -166,6 +166,11 @@ func (a *App) callback(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	s.Name = id.Name
+	id, e = a.localRole(r.Context(), id)
+	if e != nil {
+		a.authError(w, 403, "本系统用户已停用或尚未分配有效角色，请联系管理员")
+		return
+	}
 	s.Display = id.Display
 	_, e = a.db.ExecContext(r.Context(), "MERGE INTO REVENUESTATISTICSSYSTEM.IDENTITIES T USING (SELECT ? AS SUBJECT FROM DUAL) S ON (T.SUBJECT=S.SUBJECT) WHEN MATCHED THEN UPDATE SET T.USERNAME=?,T.DISPLAY_NAME=?,T.LAST_LOGIN=CURRENT_TIMESTAMP WHEN NOT MATCHED THEN INSERT(SUBJECT,ISSUER,ORGANIZATION,USERNAME,DISPLAY_NAME) VALUES(?,?,?,?,?)", claims.Sub, id.Name, id.Display, claims.Sub, issuer(), env("OIDC_ORGANIZATION", "sx"), id.Name, id.Display)
 	if e != nil {
@@ -198,6 +203,11 @@ func (a *App) session(w http.ResponseWriter, r *http.Request) {
 	id, e := a.identity(s)
 	if e != nil {
 		fail(w, 403, "应用授权无效")
+		return
+	}
+	if _, e = a.localRole(r.Context(), id); e != nil {
+		a.invalidateUsers([]string{s.Sub})
+		fail(w, 403, "本系统账号状态或业务角色已变化，请联系管理员")
 		return
 	}
 	jsonOut(w, 200, map[string]any{"access_token": "session", "redirectPath": "/dashboard", "username": id.Name})

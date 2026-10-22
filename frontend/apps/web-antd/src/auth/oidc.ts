@@ -9,6 +9,7 @@ export async function completeOidcCallback() {
   if (!response.ok) throw new Error('统一认证会话无效，请重新登录');
   const redirect = new URLSearchParams(window.location.search).get('redirect');
   const allowed = ['/dashboard', '/ranking', '/settings', '/integrations', '/module/wenchuang', '/module/naicha', '/module/ticket', '/module/hanfu', '/module/guide', '/module/bus', '/module/hotel', '/module/park', '/module/online', '/profile'];
+  allowed.push('/system','/members');
   return { redirectPath: allowed.includes(redirect || '') ? redirect! : '/dashboard' };
 }
 export async function fetchOidcUserInfo(): Promise<UserInfo & { permissions: string[]; super: boolean; role: string }> {

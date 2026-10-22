@@ -1,0 +1,27 @@
+[
+  {
+    "tab": "users",
+    "width": 390,
+    "bodyWidth": 390,
+    "roleColumns": "1fr",
+    "tableClient": 325,
+    "tableScroll": 980,
+    "mask": false
+  },
+  {
+    "tab": "roles",
+    "width": 390,
+    "bodyWidth": 390,
+    "roleColumns": "324.8px",
+    "mask": false
+  },
+  {
+    "tab": "logs",
+    "width": 390,
+    "bodyWidth": 390,
+    "roleColumns": "1fr",
+    "tableClient": 325,
+    "tableScroll": 900,
+    "mask": false
+  }
+]

@@ -348,7 +348,7 @@ func (a *App) saveRecords(vs []Record, actor string) error {
 		if e != nil {
 			return e
 		}
-		_, e = tx.Exec("INSERT INTO "+schema+"AUDIT_LOG(ID,ACTOR,ACTION,TARGET_ID) VALUES(?,?,?,?)", random(), actor, "保存日报", v.ID)
+		_, e = tx.Exec("INSERT INTO "+schema+"AUDIT_LOG(ID,ACTOR,ACTION,TARGET_ID,MODULE,DETAIL) VALUES(?,?,?,?,?,?)", auditID(), actor, "保存日报", v.ID, moduleName(mods, v.Module), fmt.Sprintf("%s；%s；金额%s元；数量%d；接待%d；版本%d", v.Date, v.Category, v.Amount, v.Quantity, v.Visitors, v.Version+1))
 		if e != nil {
 			return e
 		}
@@ -358,11 +358,30 @@ func (a *App) saveRecords(vs []Record, actor string) error {
 func (a *App) api(w http.ResponseWriter, r *http.Request, id Identity) {
 	path := strings.TrimPrefix(r.URL.Path, "/api/")
 	if path == "auth/me" && r.Method == "GET" {
-		roles := []string{"revenue-user"}
+		roles := append([]string{"revenue-user"}, id.RoleNames...)
 		if id.Super {
 			roles = append(roles, "casdoor-super-admin")
 		}
-		jsonOut(w, 200, map[string]any{"id": id.Sub, "userId": id.Sub, "username": id.Name, "realName": id.Display, "homePath": "/dashboard", "roles": roles, "role": id.Role, "super": id.Super, "permissions": []string{"Revenue.Read"}})
+		permissions := append([]string{}, id.Permissions...)
+		if id.Super {
+			permissions = []string{"Revenue.Read", "Revenue.Write", "Integration.Manage", "System.Manage"}
+		}
+		jsonOut(w, 200, map[string]any{"id": id.Sub, "userId": id.Sub, "username": id.Name, "realName": id.Display, "homePath": "/dashboard", "roles": roles, "role": id.Role, "super": id.Super, "permissions": permissions})
+		return
+	}
+	if strings.HasPrefix(path, "system/") {
+		a.system(w, r, id, strings.Split(strings.TrimPrefix(path, "system/"), "/"))
+		return
+	}
+	permission := "Revenue.Read"
+	if (path == "records" && r.Method == "POST") || path == "import" {
+		permission = "Revenue.Write"
+	}
+	if path == "integrations" {
+		permission = "Integration.Manage"
+	}
+	if !localPermission(id, permission) {
+		fail(w, 403, "当前角色未获此项操作权限")
 		return
 	}
 	switch path {
@@ -453,7 +472,13 @@ func (a *App) settings(w http.ResponseWriter, r *http.Request, id Identity) {
 		fail(w, 400, "设置内容无效")
 		return
 	}
-	res, e := a.db.Exec("UPDATE "+schema+"SETTINGS SET SCENIC_NAME=?,SCENIC_LEVEL=?,ADMIN_DEPARTMENT=?,VERSION=VERSION+1 WHERE ID=1 AND VERSION=?", v.Name, v.Level, v.Department, v.Version)
+	tx, e := a.db.BeginTx(r.Context(), nil)
+	if e != nil {
+		a.databaseError(w, e)
+		return
+	}
+	defer tx.Rollback()
+	res, e := tx.Exec("UPDATE "+schema+"SETTINGS SET SCENIC_NAME=?,SCENIC_LEVEL=?,ADMIN_DEPARTMENT=?,VERSION=VERSION+1 WHERE ID=1 AND VERSION=?", v.Name, v.Level, v.Department, v.Version)
 	if e != nil {
 		fail(w, 500, "保存失败")
 		return
@@ -463,11 +488,18 @@ func (a *App) settings(w http.ResponseWriter, r *http.Request, id Identity) {
 		fail(w, 409, "设置已更新，请刷新")
 		return
 	}
+	if e = systemAudit(r.Context(), tx, "景区设置", "编辑基础信息", "1", fmt.Sprintf("%s；%s；管理员：%s；版本%d→%d", v.Name, v.Level, v.Department, v.Version, v.Version+1), id); e == nil {
+		e = tx.Commit()
+	}
+	if e != nil {
+		a.databaseError(w, e)
+		return
+	}
 	jsonOut(w, 200, map[string]bool{"saved": true})
 }
 func (a *App) integrations(w http.ResponseWriter, r *http.Request, id Identity) {
-	if !id.Super {
-		fail(w, 403, "需要本系统超级用户权限")
+	if !localPermission(id, "Integration.Manage") {
+		fail(w, 403, "当前角色未获系统接口管理权限")
 		return
 	}
 	if r.Method == "GET" {
@@ -501,15 +533,22 @@ func (a *App) integrations(w http.ResponseWriter, r *http.Request, id Identity) 
 			fail(w, 400, "接口配置无效")
 			return
 		}
-		var e error
+		tx, e := a.db.BeginTx(r.Context(), nil)
+		if e != nil {
+			a.databaseError(w, e)
+			return
+		}
+		defer tx.Rollback()
 		token := ""
+		action := "编辑接口"
 		if v.ID == "" {
+			action = "新增接口"
 			token = random()
 			v.ID = random()
-			_, e = a.db.Exec("INSERT INTO "+schema+"INTEGRATIONS(ID,NAME,MODULE_KEY,TOKEN_HASH,ENABLED) VALUES(?,?,?,?,?)", v.ID, v.Name, v.Module, hashed(token), v.Enabled)
+			_, e = tx.Exec("INSERT INTO "+schema+"INTEGRATIONS(ID,NAME,MODULE_KEY,TOKEN_HASH,ENABLED) VALUES(?,?,?,?,?)", v.ID, v.Name, v.Module, hashed(token), v.Enabled)
 		} else {
 			var res sql.Result
-			res, e = a.db.Exec("UPDATE "+schema+"INTEGRATIONS SET NAME=?,ENABLED=? WHERE ID=?", v.Name, v.Enabled, v.ID)
+			res, e = tx.Exec("UPDATE "+schema+"INTEGRATIONS SET NAME=?,ENABLED=? WHERE ID=?", v.Name, v.Enabled, v.ID)
 			if e == nil {
 				n, err := res.RowsAffected()
 				if err != nil || n != 1 {
@@ -520,6 +559,13 @@ func (a *App) integrations(w http.ResponseWriter, r *http.Request, id Identity) 
 		}
 		if e != nil {
 			fail(w, 400, "保存失败，请核对业态")
+			return
+		}
+		if e = systemAudit(r.Context(), tx, "系统接口", action, v.ID, fmt.Sprintf("%s；启用状态：%d", v.Name, v.Enabled), id); e == nil {
+			e = tx.Commit()
+		}
+		if e != nil {
+			a.databaseError(w, e)
 			return
 		}
 		jsonOut(w, 200, map[string]string{"token": token, "id": v.ID})
@@ -537,8 +583,8 @@ func (a *App) ingest(w http.ResponseWriter, r *http.Request) {
 		fail(w, 401, "接口凭据无效")
 		return
 	}
-	var key, module string
-	e := a.db.QueryRow("SELECT ID,MODULE_KEY FROM "+schema+"INTEGRATIONS WHERE TOKEN_HASH=? AND ENABLED=1", hashed(token)).Scan(&key, &module)
+	var key, module, integrationName string
+	e := a.db.QueryRow("SELECT ID,MODULE_KEY,NAME FROM "+schema+"INTEGRATIONS WHERE TOKEN_HASH=? AND ENABLED=1", hashed(token)).Scan(&key, &module, &integrationName)
 	if e != nil {
 		fail(w, 401, "接口凭据无效或停用")
 		return
@@ -579,6 +625,10 @@ func (a *App) ingest(w http.ResponseWriter, r *http.Request) {
 	_, e = tx.Exec("INSERT INTO "+schema+"REVENUE_RECORDS(ID,MODULE_KEY,BUSINESS_DATE,CATEGORY,QUANTITY,AMOUNT_CENTS,VISITORS,SOURCE,NOTE,CREATED_BY) VALUES(?,?,?,?,?,?,?,?,?,?)", rid, module, q.Date, q.Category, q.Quantity, q.Cents, q.Visitors, q.Source, q.Note, "integration:"+key)
 	if e != nil {
 		fail(w, 409, "写入冲突，请使用相同 sourceId 重试")
+		return
+	}
+	if e = systemAudit(r.Context(), tx, "系统接口", "接口写入日报", rid, fmt.Sprintf("%s；%s；%s；金额%s元；流水%s", integrationName, q.Date, q.Category, q.Amount, v.SourceID), Identity{Name: integrationName}); e != nil {
+		a.databaseError(w, e)
 		return
 	}
 	if tx.Commit() != nil {
