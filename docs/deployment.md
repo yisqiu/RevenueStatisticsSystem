@@ -2,8 +2,8 @@
 
 ## 当前部署
 114服务器，目录/data/RevenueStatisticsSystem；网站http://cd.libeasy.cn:8027/，后端127.0.0.1:8127，服务revenuestatistics.service。
-current指向releases/20261022-site-audit，Go PID2873590保持。最新检查见[全站交互检查](site-interaction-audit-20261022.md)，上轮修复见[周期与弹窗](period-modal-fix-20261022.md)，系统管理验收见[系统管理升级](system-management-20261022.md)。
-发布包SHA256：c49c7c3587c263d1d3c00482095a9122e40c04c6e6be816b506bf4d0fa4b2f76。
+current指向releases/20261023-panels-v2，营收PID2873590、guide接收PID3181589保持。最新检查见[新增修改面板](panels-audit-20261023.md)，侧栏按钮见[恢复记录](sidebar-buttons-20261022.md)，系统管理验收见[系统管理升级](system-management-20261022.md)。
+最新web静态包SHA256：0f2ad76a6121702b05778a49d2a29ec42550c74c293db9132fef734f146ff73b。
 Go二进制SHA256：c9538c59944c4e6935f5ddd86ffeb3453ca3e332ebe9cedf1e328aceef9782f2。
 manifest.json保存逐文件校验值。20261022-accepted、20261021-final等历史版本保留。
 
@@ -26,6 +26,7 @@ Go仅在本机测试及交叉编译；前端完成typecheck/build，再运行scr
 后端重启后用户经统一认证重新进入；验证/api/health、实际登录页面和必要业务保存。
 
 ## 回退
+本轮面板修复前版本20261022-sidebar-buttons-v2保留，备份指针backups/20261023-before-panels/previous-release.txt；原子切回，无须重启业务。
 本轮纯前端发布保留20261022-period-modal，备份指针位于backups/20261022-before-site-audit/previous-release.txt；原子切回该版本即可，无须重启业务。
 本轮发布前备份/data/RevenueStatisticsSystem/backups/20261022-before-system-management，包含受限配置、服务配置、previous-release.txt及进程信息。源码基线4458e82，备份分支backup/20261022-before-system-management。
 应用回退原子切换current至20261022-accepted并重启本服务。新增表、日志、身份与角色映射保留；AUDIT_LOG新增字段可与旧程序兼容。

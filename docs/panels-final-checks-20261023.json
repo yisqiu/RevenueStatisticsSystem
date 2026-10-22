@@ -1,0 +1,53 @@
+[
+  {
+    "kind": "keyboard-submit",
+    "path": "/module/ticket",
+    "requests": 1,
+    "retained": true,
+    "ok": true
+  },
+  {
+    "kind": "keyboard-submit",
+    "path": "/settings",
+    "requests": 1,
+    "retained": true,
+    "ok": true
+  },
+  {
+    "kind": "keyboard-submit",
+    "path": "/integrations",
+    "requests": 1,
+    "retained": true,
+    "ok": true
+  },
+  {
+    "kind": "mobile-panel",
+    "path": "/module/ticket",
+    "viewport": 390,
+    "bodyWidth": 390,
+    "dialogWidth": 358,
+    "saveVisible": true,
+    "foreground": true,
+    "ok": true
+  },
+  {
+    "kind": "mobile-panel",
+    "path": "/settings",
+    "viewport": 390,
+    "bodyWidth": 390,
+    "dialogWidth": 358,
+    "saveVisible": true,
+    "foreground": true,
+    "ok": true
+  },
+  {
+    "kind": "mobile-panel",
+    "path": "/integrations",
+    "viewport": 390,
+    "bodyWidth": 390,
+    "dialogWidth": 358,
+    "saveVisible": true,
+    "foreground": true,
+    "ok": true
+  }
+]

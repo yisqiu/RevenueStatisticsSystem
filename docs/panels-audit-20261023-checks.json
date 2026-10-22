@@ -1,0 +1,431 @@
+{
+  "date": "2026-10-23",
+  "system": "8027营收统计系统",
+  "release": "20261023-panels-v2",
+  "baseline": [
+    {
+      "kind": "baseline-required",
+      "nativeValid": false,
+      "requests": 1,
+      "stayedOpen": true
+    },
+    {
+      "kind": "baseline-edit-while-saving",
+      "disabled": false,
+      "sentCategory": "保存前的数据",
+      "displayedWhilePending": "保存中又输入的内容",
+      "closedOnSuccess": true
+    },
+    {
+      "kind": "baseline-other-saving",
+      "page": "/settings",
+      "editable": 3
+    },
+    {
+      "kind": "baseline-other-saving",
+      "page": "/integrations",
+      "editable": 3
+    }
+  ],
+  "keyboardBefore": {
+    "nativeFormValid": true,
+    "requestsOnEnter": 0,
+    "submitButtonPresent": false
+  },
+  "checks": [
+    {
+      "kind": "new-record",
+      "module": "wenchuang",
+      "emptyBlocked": true,
+      "locked": true,
+      "oneRequest": true,
+      "errorRetained": true,
+      "front": true,
+      "ok": true
+    },
+    {
+      "kind": "edit-record",
+      "module": "wenchuang",
+      "editFront": true,
+      "emptyAmountBlocked": true,
+      "ok": true
+    },
+    {
+      "kind": "new-record",
+      "module": "naicha",
+      "emptyBlocked": true,
+      "locked": true,
+      "oneRequest": true,
+      "errorRetained": true,
+      "front": true,
+      "ok": true
+    },
+    {
+      "kind": "edit-record",
+      "module": "naicha",
+      "editFront": true,
+      "emptyAmountBlocked": true,
+      "ok": true
+    },
+    {
+      "kind": "new-record",
+      "module": "ticket",
+      "emptyBlocked": true,
+      "locked": true,
+      "oneRequest": true,
+      "errorRetained": true,
+      "front": true,
+      "ok": true
+    },
+    {
+      "kind": "edit-record",
+      "module": "ticket",
+      "editFront": true,
+      "emptyAmountBlocked": true,
+      "ok": true
+    },
+    {
+      "kind": "new-record",
+      "module": "hanfu",
+      "emptyBlocked": true,
+      "locked": true,
+      "oneRequest": true,
+      "errorRetained": true,
+      "front": true,
+      "ok": true
+    },
+    {
+      "kind": "edit-record",
+      "module": "hanfu",
+      "editFront": true,
+      "emptyAmountBlocked": true,
+      "ok": true
+    },
+    {
+      "kind": "new-record",
+      "module": "guide",
+      "emptyBlocked": true,
+      "locked": true,
+      "oneRequest": true,
+      "errorRetained": true,
+      "front": true,
+      "ok": true
+    },
+    {
+      "kind": "edit-record",
+      "module": "guide",
+      "editFront": true,
+      "emptyAmountBlocked": true,
+      "ok": true
+    },
+    {
+      "kind": "new-record",
+      "module": "bus",
+      "emptyBlocked": true,
+      "locked": true,
+      "oneRequest": true,
+      "errorRetained": true,
+      "front": true,
+      "ok": true
+    },
+    {
+      "kind": "edit-record",
+      "module": "bus",
+      "editFront": true,
+      "emptyAmountBlocked": true,
+      "ok": true
+    },
+    {
+      "kind": "new-record",
+      "module": "hotel",
+      "emptyBlocked": true,
+      "locked": true,
+      "oneRequest": true,
+      "errorRetained": true,
+      "front": true,
+      "ok": true
+    },
+    {
+      "kind": "edit-record",
+      "module": "hotel",
+      "editFront": true,
+      "emptyAmountBlocked": true,
+      "ok": true
+    },
+    {
+      "kind": "new-record",
+      "module": "park",
+      "emptyBlocked": true,
+      "locked": true,
+      "oneRequest": true,
+      "errorRetained": true,
+      "front": true,
+      "ok": true
+    },
+    {
+      "kind": "edit-record",
+      "module": "park",
+      "editFront": true,
+      "emptyAmountBlocked": true,
+      "ok": true
+    },
+    {
+      "kind": "new-record",
+      "module": "online",
+      "emptyBlocked": true,
+      "locked": true,
+      "oneRequest": true,
+      "errorRetained": true,
+      "front": true,
+      "ok": true
+    },
+    {
+      "kind": "edit-record",
+      "module": "online",
+      "editFront": true,
+      "emptyAmountBlocked": true,
+      "ok": true
+    },
+    {
+      "kind": "field-validation",
+      "field": "日期",
+      "value": "1999-12-31",
+      "ok": true
+    },
+    {
+      "kind": "field-validation",
+      "field": "日期",
+      "value": "2101-01-01",
+      "ok": true
+    },
+    {
+      "kind": "field-validation",
+      "field": "日期",
+      "value": "",
+      "ok": true
+    },
+    {
+      "kind": "field-validation",
+      "field": "数量",
+      "value": "-1",
+      "ok": true
+    },
+    {
+      "kind": "field-validation",
+      "field": "数量",
+      "value": "1.5",
+      "ok": true
+    },
+    {
+      "kind": "field-validation",
+      "field": "数量",
+      "value": "100000001",
+      "ok": true
+    },
+    {
+      "kind": "field-validation",
+      "field": "金额",
+      "value": "-1",
+      "ok": true
+    },
+    {
+      "kind": "field-validation",
+      "field": "金额",
+      "value": "0.001",
+      "ok": true
+    },
+    {
+      "kind": "field-validation",
+      "field": "接待量",
+      "value": "-1",
+      "ok": true
+    },
+    {
+      "kind": "field-validation",
+      "field": "接待量",
+      "value": "1.5",
+      "ok": true
+    },
+    {
+      "kind": "field-validation",
+      "field": "接待量",
+      "value": "100000001",
+      "ok": true
+    },
+    {
+      "kind": "configuration-form",
+      "path": "/settings",
+      "action": "编辑",
+      "emptyBlocked": true,
+      "locked": true,
+      "errorRetained": true,
+      "oneRequest": true,
+      "ok": true
+    },
+    {
+      "kind": "configuration-form",
+      "path": "/integrations",
+      "action": "新增对接系统",
+      "emptyBlocked": true,
+      "locked": true,
+      "errorRetained": true,
+      "oneRequest": true,
+      "ok": true
+    },
+    {
+      "kind": "configuration-form",
+      "path": "/integrations",
+      "action": "编辑",
+      "emptyBlocked": true,
+      "locked": true,
+      "errorRetained": true,
+      "oneRequest": true,
+      "ok": true
+    },
+    {
+      "kind": "real-save-and-edit",
+      "id": "S_a90P4smpI_O2VejC3zk8tURdaEPwBp20zBHYOKUqw",
+      "createOK": true,
+      "amount": "2.34",
+      "quantity": 2,
+      "visitors": 3,
+      "version": 2,
+      "category": "面板真实修改验收",
+      "ok": true
+    },
+    {
+      "kind": "role-panel",
+      "action": "新增角色",
+      "calls": 1,
+      "locked": true,
+      "errorRetained": true,
+      "ok": true
+    },
+    {
+      "kind": "role-panel",
+      "action": "配置权限",
+      "calls": 1,
+      "locked": true,
+      "errorRetained": true,
+      "ok": true
+    },
+    {
+      "kind": "role-panel",
+      "action": "查看权限",
+      "readOnly": true,
+      "ok": true
+    },
+    {
+      "kind": "binding-panel",
+      "emptyBlocked": true,
+      "locked": true,
+      "errorRetained": true,
+      "calls": 1,
+      "ok": true
+    }
+  ],
+  "actualApiRequests": 59,
+  "apiFailures": [],
+  "databaseBefore": [
+    [
+      "bus",
+      1512,
+      490000000
+    ],
+    [
+      "guide",
+      1,
+      16000
+    ],
+    [
+      "hanfu",
+      1512,
+      388000000
+    ],
+    [
+      "hotel",
+      1512,
+      1331000000
+    ],
+    [
+      "naicha",
+      1764,
+      617000000
+    ],
+    [
+      "online",
+      1512,
+      444000000
+    ],
+    [
+      "park",
+      1512,
+      281000000
+    ],
+    [
+      "ticket",
+      1515,
+      2997018002
+    ],
+    [
+      "wenchuang",
+      1764,
+      969000000
+    ]
+  ],
+  "databaseAfter": [
+    [
+      "bus",
+      1512,
+      490000000
+    ],
+    [
+      "guide",
+      1,
+      16000
+    ],
+    [
+      "hanfu",
+      1512,
+      388000000
+    ],
+    [
+      "hotel",
+      1512,
+      1331000000
+    ],
+    [
+      "naicha",
+      1764,
+      617000000
+    ],
+    [
+      "online",
+      1512,
+      444000000
+    ],
+    [
+      "park",
+      1512,
+      281000000
+    ],
+    [
+      "ticket",
+      1515,
+      2997018002
+    ],
+    [
+      "wenchuang",
+      1764,
+      969000000
+    ]
+  ],
+  "businessCountsAndAmountsRestored": true,
+  "fixturesRemaining": 0,
+  "retainedAudits": 3,
+  "notes": [
+    "保存中锁定、业务错误、重复点击及角色/用户绑定保存为浏览器写请求拦截模拟，无真实账号角色变更。",
+    "独立2020-01-02票务临时日报通过真实页面新增1.23元/2人，编辑2.34元/3人，版本2；随后仅清理该临时记录，保存和清理审计共3条保留。",
+    "数据库九模块记录数和金额分合计与检查前逐项一致，包括guide正式记录1条160元。"
+  ]
+}
