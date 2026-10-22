@@ -4,11 +4,11 @@
 }
 body{font-synthesis:weight;font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;background:var(--paper)}
 .bg-sidebar{background:linear-gradient(180deg,#3a2c1e,#2b2118)!important;border-right:3px solid var(--gold)!important}
-.bg-sidebar>div:first-of-type{height:186px!important;border-bottom:1px solid rgba(216,178,106,.22)}
-.bg-sidebar>div:first-of-type>div{height:100%!important}
-.bg-sidebar>div:first-of-type a{display:flex;flex-direction:column;width:100%;justify-content:center;gap:0;padding:18px 16px}
-.bg-sidebar>div:first-of-type a>div:first-child{width:64px!important;height:64px!important;background:#f3eddf!important;border:1.5px solid rgba(216,178,106,.4);border-radius:14px;padding:10px;box-shadow:0 4px 14px rgba(0,0,0,.35);margin-bottom:12px}
-.bg-sidebar>div:nth-of-type(2){height:calc(100% - 228px)!important}
+.bg-sidebar>div:has(>div>a){height:186px!important;border-bottom:1px solid rgba(216,178,106,.22)}
+.bg-sidebar>div:has(>div>a)>div{height:100%!important}
+.bg-sidebar>div:has(>div>a) a{display:flex;flex-direction:column;width:100%;justify-content:center;gap:0;padding:18px 16px}
+.bg-sidebar>div:has(>div>a) a>div:first-child{width:64px!important;height:64px!important;background:#f3eddf!important;border:1.5px solid rgba(216,178,106,.4);border-radius:14px;padding:10px;box-shadow:0 4px 14px rgba(0,0,0,.35);margin-bottom:12px}
+.bg-sidebar>.vben-scrollbar{height:calc(100% - 228px)!important}
 .revenue-brand{text-align:center;white-space:nowrap}.revenue-brand strong{display:block;color:#f3e9d4;font-size:19px;line-height:26px;letter-spacing:2px;font-family:"STKaiti","KaiTi","Songti SC",serif}.revenue-brand span{display:block;font-size:10px;letter-spacing:1.6px;color:#d8b26a;margin-top:6px}.revenue-brand small{display:inline-block;background:#a63a2b;color:#fff;font-size:11px;padding:2px 7px;border-radius:3px;margin-top:9px;letter-spacing:2px;font-family:"STKaiti","KaiTi",serif}
 .bg-sidebar .vben-menu{background:transparent!important;--menu-background-color:transparent!important;--menu-item-color:#cdbfa5!important;--menu-item-background-color:transparent!important;--menu-item-hover-color:#f3e9d4!important;--menu-item-hover-background-color:rgba(216,178,106,.09)!important;--menu-item-active-color:#fff!important;--menu-item-active-background-color:rgba(166,58,43,.28)!important;--menu-item-padding-x:20px!important;--menu-item-padding-y:11px!important;--menu-item-height:42px!important;--menu-item-margin-y:0px!important;font-size:13.5px}
 .bg-sidebar .vben-menu-item{border-left:3px solid transparent;border-radius:0!important}.bg-sidebar .vben-menu-item.is-active{border-left-color:#d8b26a}.bg-sidebar .vben-menu-item__content{gap:11px}.bg-sidebar .vben-menu__icon{font-size:15px;width:20px;height:20px;color:#cdbfa5}
@@ -21,9 +21,18 @@ body{font-synthesis:weight;font-family:"PingFang SC","Microsoft YaHei","Hiragino
 @media(max-width:800px){.revenue-heading{display:none}.bg-header{padding-left:8px!important;padding-right:8px!important}.revenue-form{grid-template-columns:1fr}}
 .record-query{display:flex;gap:10px;margin:12px 0}.record-query input{flex:1;border:1px solid #e3d8c3;border-radius:6px;padding:8px 12px}.record-query .btn{border:1px solid #e3d8c3;border-radius:6px;padding:6px 12px}.settings-icon{width:30px;height:30px;font-size:14px;border-radius:8px;color:#2b2118}
 .bg-sidebar .vben-menu-item.is-active::after{content:'';position:absolute;right:20px;width:6px;height:6px;background:#d8b26a;border-radius:50%}
-.bg-sidebar>div:first-of-type{height:188px!important}.bg-sidebar>div:first-of-type a{padding:22px 20px 18px}.bg-sidebar>div:nth-of-type(2){height:calc(100% - 254px)!important}.bg-sidebar>div:nth-of-type(3){height:66px!important;border-top:1px solid rgba(216,178,106,.2);padding:14px 20px;font-size:11px;line-height:18.7px;color:#8b7a5f}.bg-sidebar>div:nth-of-type(3)::after{content:'寿县古城景区\a版本 V1.0 · 营收统计';white-space:pre-line}
+.bg-sidebar>div:has(>div>a){height:188px!important}.bg-sidebar>div:has(>div>a) a{padding:22px 20px 18px}.bg-sidebar>.vben-scrollbar{height:calc(100% - 272px)!important}.bg-sidebar>.vben-scrollbar+div{height:84px!important;border-top:1px solid rgba(216,178,106,.2);padding:8px 20px;font-size:11px;line-height:18.7px;color:#8b7a5f}.bg-sidebar>.vben-scrollbar+div::after{content:'寿县古城景区\a版本 V1.0 · 营收统计';white-space:pre-line}
 html::-webkit-scrollbar,body::-webkit-scrollbar{width:15px;height:15px}
 
-.bg-sidebar>div:first-of-type a{justify-content:flex-start}
+.bg-sidebar>div:has(>div>a) a{justify-content:flex-start}
 .revenue-brand{width:100%;text-align:left;line-height:normal}.revenue-brand strong,.revenue-brand span{text-align:center;line-height:normal}.revenue-brand small{line-height:normal}
 .bg-sidebar .vben-menu-item{padding-left:20px!important}.bg-sidebar .vben-menu__icon{margin-right:0!important;text-align:center}
+.bg-sidebar:has(.vben-menu.is-collapse)>div:has(>div>a){height:66px!important}
+.bg-sidebar:has(.vben-menu.is-collapse)>div:has(>div>a) a{padding:14px 10px;align-items:center}
+.bg-sidebar:has(.vben-menu.is-collapse)>div:has(>div>a) a>div:first-child{width:32px!important;height:32px!important;padding:5px;margin-bottom:0}
+.bg-sidebar:has(.vben-menu.is-collapse)>.vben-scrollbar{height:calc(100% - 108px)!important}
+.bg-sidebar:has(.vben-menu.is-collapse)>.vben-scrollbar+div{height:42px!important;padding:0}
+.bg-sidebar:has(.vben-menu.is-collapse)>.vben-scrollbar+div::after{content:none}
+.bg-sidebar:has(.vben-menu.is-collapse) .vben-menu-item{padding-left:0!important;margin-top:0!important}
+.bg-sidebar:has(.vben-menu.is-collapse) .vben-menu-item::before{display:none}
+.bg-sidebar:has(.vben-menu.is-collapse) .vben-menu-item.is-active::after{right:5px}

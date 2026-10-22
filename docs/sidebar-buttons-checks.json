@@ -1,0 +1,136 @@
+[
+  {
+    "mode": "expanded",
+    "width": 238,
+    "x": 0,
+    "menu": "dark vben-menu is-vertical is-dark",
+    "header": 188,
+    "buttons": [
+      {
+        "x": 202,
+        "y": 968,
+        "w": 24,
+        "h": 24,
+        "icon": "lucide size-3.5 lucide-pin-icon lucide-pin size-3.5",
+        "foreground": true
+      },
+      {
+        "x": 12,
+        "y": 968,
+        "w": 24,
+        "h": 24,
+        "icon": "lucide size-4 lucide-chevrons-left-icon lucide-chevrons-left size-4",
+        "foreground": true
+      }
+    ]
+  },
+  {
+    "mode": "collapsed",
+    "width": 60,
+    "x": 0,
+    "menu": "dark vben-menu is-vertical is-dark is-collapse",
+    "header": 66,
+    "buttons": [
+      {
+        "x": 12,
+        "y": 968,
+        "w": 24,
+        "h": 24,
+        "icon": "lucide size-4 lucide-chevrons-right-icon lucide-chevrons-right size-4",
+        "foreground": true
+      }
+    ]
+  },
+  {
+    "mode": "unfixed-left",
+    "width": 60,
+    "x": 0,
+    "menu": "dark vben-menu is-vertical is-dark is-collapse",
+    "header": 66,
+    "buttons": [
+      {
+        "x": 12,
+        "y": 968,
+        "w": 24,
+        "h": 24,
+        "icon": "lucide size-4 lucide-chevrons-right-icon lucide-chevrons-right size-4",
+        "foreground": true
+      }
+    ]
+  },
+  {
+    "mode": "hover-expanded",
+    "width": 238,
+    "x": 0,
+    "menu": "dark vben-menu is-vertical is-dark",
+    "header": 188,
+    "buttons": [
+      {
+        "x": 202,
+        "y": 968,
+        "w": 24,
+        "h": 24,
+        "icon": "lucide size-3.5 lucide-pin-off-icon lucide-pin-off size-3.5",
+        "foreground": true
+      },
+      {
+        "x": 12,
+        "y": 968,
+        "w": 24,
+        "h": 24,
+        "icon": "lucide size-4 lucide-chevrons-left-icon lucide-chevrons-left size-4",
+        "foreground": true
+      }
+    ]
+  },
+  {
+    "mode": "fixed-left",
+    "width": 238,
+    "x": 0,
+    "menu": "dark vben-menu is-vertical is-dark",
+    "header": 188,
+    "buttons": [
+      {
+        "x": 202,
+        "y": 968,
+        "w": 24,
+        "h": 24,
+        "icon": "lucide size-3.5 lucide-pin-icon lucide-pin size-3.5",
+        "foreground": true
+      },
+      {
+        "x": 12,
+        "y": 968,
+        "w": 24,
+        "h": 24,
+        "icon": "lucide size-4 lucide-chevrons-left-icon lucide-chevrons-left size-4",
+        "foreground": true
+      }
+    ]
+  },
+  {
+    "mode": "reloaded",
+    "width": 238,
+    "x": 0,
+    "menu": "dark vben-menu is-vertical is-dark",
+    "header": 188,
+    "buttons": [
+      {
+        "x": 202,
+        "y": 968,
+        "w": 24,
+        "h": 24,
+        "icon": "lucide size-3.5 lucide-pin-icon lucide-pin size-3.5",
+        "foreground": true
+      },
+      {
+        "x": 12,
+        "y": 968,
+        "w": 24,
+        "h": 24,
+        "icon": "lucide size-4 lucide-chevrons-left-icon lucide-chevrons-left size-4",
+        "foreground": true
+      }
+    ]
+  }
+]
