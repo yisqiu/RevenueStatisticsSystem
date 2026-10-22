@@ -51,7 +51,20 @@ const kpis=computed(()=>{const m=module.value;if(m){const main=Object.entries(m.
 function growthText(n:number|null){return n===null?'暂无对比':(n>=0?'▲ ':'▼ ')+fmt(Math.abs(n))+'%'}
 function fmt(n:number|null){return n===null?'—':n.toLocaleString('zh-CN',{minimumFractionDigits:1,maximumFractionDigits:1})}
 function query(){return new URLSearchParams({date:date.value,range:range.value}).toString()}
-async function api<T>(url:string,init?:RequestInit):Promise<T>{const res=await fetch('/api/'+url,{cache:'no-store',...init});if(!res.ok){let text='操作失败';try{text=(await res.json()).message||text}catch{}if(res.status===401||res.status===403)window.dispatchEvent(new CustomEvent('team-auth-error',{detail:text}));throw new Error(text)}return res.json()}
+async function api<T>(url:string,init?:RequestInit):Promise<T>{
+ const options:RequestInit={cache:'no-store',...init};
+ for(let attempt=0;;attempt++){
+  try{
+   const res=await fetch('/api/'+url,options);
+   if(!res.ok){let text='操作失败';try{text=(await res.json()).message||text}catch{}if(res.status===401||res.status===403)window.dispatchEvent(new CustomEvent('team-auth-error',{detail:text}));throw new Error(text)}
+   return await res.json();
+  }catch(e){
+   if((options.method||'GET').toUpperCase()!=='GET'||!(e instanceof TypeError))throw e;
+   if(attempt>0)throw new Error('网络连接暂时中断，请检查连接后重新加载');
+   await new Promise(resolve=>setTimeout(resolve,250));
+  }
+ }
+}
 let loadSequence=0;
 async function load(){if(route.path!==pagePath)return;const sequence=++loadSequence;busy.value=true;error.value='';try{const [summary,config,interfaces]=await Promise.all([api<typeof data.value>('summary?'+query()),api<Settings>('settings'),route.path==='/integrations'&&canManageIntegration.value?api<Integration[]>('integrations'):Promise.resolve(undefined)]);if(sequence!==loadSequence)return;data.value=summary;settings.value=config;if(interfaces)integrations.value=interfaces}catch(e){if(sequence===loadSequence)error.value=(e as Error).message}finally{if(sequence===loadSequence)busy.value=false}}
 watch([()=>route.path,date,range],load,{immediate:true});
@@ -109,7 +122,7 @@ function editRecord(r:RevenueRecord){form.value={...r};formOpen.value=true}
   </div>
   <div class="foot">寿县古城景区营收统计系统 · 数据来源以日报记录为准</div>
   <input ref="fileInput" hidden type="file" accept=".xlsx" @change="importFile" />
-  <Modal v-model:open="formOpen" :title="form.id?'编辑日报数据':'新增日报数据'" :confirm-loading="saving" @ok="saveRecord" ok-text="保存" cancel-text="取消" wrap-class-name="revenue-modal" :width="640">
+  <Modal v-model:open="formOpen" :z-index="2001" :title="form.id?'编辑日报数据':'新增日报数据'" :confirm-loading="saving" @ok="saveRecord" ok-text="保存" cancel-text="取消" wrap-class-name="revenue-modal" :width="640">
    <form class="revenue-form" @submit.prevent="saveRecord"><label>经营业态<select v-model="form.module"><option v-for="m in modules" :key="m.key" :value="m.key">{{m.name}}</option></select></label><label>业务日期<input v-model="form.date" type="date" required /></label><label>商品 / 服务品类<input v-model="form.category" maxlength="100" required /></label><label>数量<input v-model.number="form.quantity" type="number" min="0" step="1" required /></label><label>营收金额（元）<input v-model="form.amount" type="number" min="0" step="0.01" required /></label><label>接待量（{{visitorUnit(form.module)}}）<input v-model.number="form.visitors" type="number" min="0" step="1" required /></label><label>数据来源<input v-model="form.source" maxlength="100" /></label><label>备注<input v-model="form.note" maxlength="500" /></label></form>
   </Modal>
   <Modal v-model:open="recordListOpen" title="日报记录" :footer="null" :width="1100" wrap-class-name="revenue-modal"><div class="record-query"><input v-model="recordSearch" placeholder="查询日期、品类、来源或备注" aria-label="查询日报记录" /><button class="btn" @click="recordSearch=''">清空</button></div><div class="record-scroll"><table><thead><tr><th>日期</th><th>业态</th><th>品类</th><th>数量</th><th>营收(元)</th><th>接待量</th><th>来源</th><th>操作</th></tr></thead><tbody><tr v-for="r in visibleRecords" :key="r.id"><td>{{r.date}}</td><td>{{modules.find(m=>m.key===r.module)?.name}}</td><td>{{r.category}}</td><td>{{r.quantity}}</td><td>{{r.amount}}</td><td>{{r.visitors}}</td><td>{{r.source}}</td><td><button v-if="canWrite" class="btn" @click="editRecord(r)">编辑</button></td></tr><tr v-if="!visibleRecords.length"><td colspan="8">当前周期暂无日报记录</td></tr></tbody></table></div></Modal>

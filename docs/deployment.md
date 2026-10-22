@@ -2,8 +2,8 @@
 
 ## 当前部署
 114服务器，目录/data/RevenueStatisticsSystem；网站http://cd.libeasy.cn:8027/，后端127.0.0.1:8127，服务revenuestatistics.service。
-current指向releases/20261022-system-management-verified，Go PID2873590。完整验收见[系统管理升级](system-management-20261022.md)。
-发布包SHA256：3fd2aff4029c76a326be886d603eb6d3bf74c8fc74b6d495b53243e37ad4678f。
+current指向releases/20261022-period-modal，Go PID2873590保持。最新修复见[周期与弹窗](period-modal-fix-20261022.md)，系统管理验收见[系统管理升级](system-management-20261022.md)。
+发布包SHA256：dcbbd3e65a79f9177dc4d6d90b31406cd2d6c7a53955cd26f7180abf4e068b02。
 Go二进制SHA256：c9538c59944c4e6935f5ddd86ffeb3453ca3e332ebe9cedf1e328aceef9782f2。
 manifest.json保存逐文件校验值。20261022-accepted、20261021-final等历史版本保留。
 

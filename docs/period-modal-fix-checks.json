@@ -1,0 +1,96 @@
+{
+  "modal": {
+    "order": [
+      {
+        "title": "编辑日报数据",
+        "z": "2001"
+      },
+      {
+        "title": "日报记录",
+        "z": "2000"
+      }
+    ],
+    "topAtEditor": "编辑日报数据",
+    "focus": true,
+    "script": "http://cd.libeasy.cn:8027/jse/index-index-B-E4RpYS.js",
+    "cancelKeptNote": true,
+    "simulatedSave": {
+      "posts": 1,
+      "editClosed": true,
+      "listRetained": true
+    }
+  },
+  "period": [
+    {
+      "case": "normal-本日",
+      "error": "",
+      "charts": 4,
+      "active": "本日",
+      "total": "0.0万元"
+    },
+    {
+      "case": "normal-本年",
+      "error": "",
+      "charts": 4,
+      "active": "本年",
+      "total": "6,374.0万元"
+    },
+    {
+      "case": "normal-本月",
+      "error": "",
+      "charts": 4,
+      "active": "本月",
+      "total": "949.0万元"
+    },
+    {
+      "case": "first-network-failure",
+      "attempts": 2,
+      "error": "",
+      "charts": 4,
+      "active": "本日",
+      "total": "0.0万元"
+    },
+    {
+      "case": "body-read-failure-after-200",
+      "attempts": 2,
+      "error": "",
+      "charts": 4,
+      "active": "本年",
+      "total": "6,374.0万元"
+    },
+    {
+      "case": "persistent-network-failure",
+      "attempts": 2,
+      "error": "网络连接暂时中断，请检查连接后重新加载\n重新加载",
+      "charts": 0,
+      "active": "本月"
+    },
+    {
+      "case": "network-restored",
+      "error": "",
+      "charts": 4,
+      "active": "本日",
+      "total": "0.0万元"
+    },
+    {
+      "case": "http-error-no-retry",
+      "attempts": 1,
+      "error": "回归业务错误\n重新加载",
+      "charts": 0,
+      "active": "本年"
+    },
+    {
+      "case": "final-restored",
+      "error": "",
+      "charts": 4,
+      "active": "本月",
+      "total": "949.0万元"
+    },
+    {
+      "case": "reload-button-after-network-recovery",
+      "failures": 2,
+      "errorShown": true,
+      "recovered": true
+    }
+  ]
+}
