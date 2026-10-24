@@ -1,0 +1,275 @@
+{
+  "at": "2026-10-24",
+  "sourceAndWarehouseReceptionFieldsPresent": true,
+  "sourceAndWarehouseGroupedAmountsMatch": true,
+  "aggregatesUnchanged": true,
+  "beforeTotals": [
+    [
+      "bus",
+      1512,
+      490000000,
+      617400,
+      539742
+    ],
+    [
+      "guide",
+      2,
+      196000,
+      12,
+      2
+    ],
+    [
+      "hanfu",
+      1512,
+      388000000,
+      97776,
+      95424
+    ],
+    [
+      "hotel",
+      1512,
+      1331000000,
+      48510,
+      53130
+    ],
+    [
+      "naicha",
+      1764,
+      617000000,
+      548016,
+      652092
+    ],
+    [
+      "online",
+      1512,
+      444000000,
+      144270,
+      142926
+    ],
+    [
+      "park",
+      1512,
+      281000000,
+      467208,
+      472857
+    ],
+    [
+      "ticket",
+      1515,
+      2997018002,
+      2056200,
+      1426431
+    ],
+    [
+      "wenchuang",
+      1764,
+      969000000,
+      259014,
+      132930
+    ]
+  ],
+  "afterTotals": [
+    [
+      "bus",
+      1512,
+      490000000,
+      617400,
+      539742
+    ],
+    [
+      "guide",
+      2,
+      196000,
+      12,
+      2
+    ],
+    [
+      "hanfu",
+      1512,
+      388000000,
+      97776,
+      95424
+    ],
+    [
+      "hotel",
+      1512,
+      1331000000,
+      48510,
+      53130
+    ],
+    [
+      "naicha",
+      1764,
+      617000000,
+      548016,
+      652092
+    ],
+    [
+      "online",
+      1512,
+      444000000,
+      144270,
+      142926
+    ],
+    [
+      "park",
+      1512,
+      281000000,
+      467208,
+      472857
+    ],
+    [
+      "ticket",
+      1515,
+      2997018002,
+      2056200,
+      1426431
+    ],
+    [
+      "wenchuang",
+      1764,
+      969000000,
+      259014,
+      132930
+    ]
+  ],
+  "periods": [
+    {
+      "period": "本日",
+      "rows": [
+        [
+          "团队接待",
+          "1",
+          "1,800",
+          "1,800",
+          "100.0%"
+        ]
+      ],
+      "chartCanvases": [
+        {
+          "width": 758,
+          "height": 350
+        },
+        {
+          "width": 471,
+          "height": 350
+        }
+      ],
+      "errors": false
+    },
+    {
+      "period": "本月",
+      "rows": [
+        [
+          "团队接待",
+          "1",
+          "1,800",
+          "1,800",
+          "91.8%"
+        ],
+        [
+          "游客接待",
+          "1",
+          "160",
+          "160",
+          "8.2%"
+        ]
+      ],
+      "chartCanvases": [
+        {
+          "width": 747,
+          "height": 350
+        },
+        {
+          "width": 464,
+          "height": 350
+        }
+      ],
+      "errors": false
+    },
+    {
+      "period": "本年",
+      "rows": [
+        [
+          "团队接待",
+          "1",
+          "1,800",
+          "1,800",
+          "91.8%"
+        ],
+        [
+          "游客接待",
+          "1",
+          "160",
+          "160",
+          "8.2%"
+        ]
+      ],
+      "chartCanvases": [
+        {
+          "width": 747,
+          "height": 350
+        },
+        {
+          "width": 464,
+          "height": 350
+        }
+      ],
+      "errors": false
+    }
+  ],
+  "push": {
+    "id": 183,
+    "runStatus": 3,
+    "dataCount": 14,
+    "projectId": 10015,
+    "start": "2026-10-24 20:11:59",
+    "response": [
+      {
+        "duplicate": 14,
+        "received": 14,
+        "removed": 0,
+        "stale": 0,
+        "upserted": 0
+      }
+    ],
+    "hasError": false
+  },
+  "rendered": {
+    "status": 200,
+    "value": 0.196,
+    "visitors": 12,
+    "rows": [
+      [
+        "团队接待",
+        1,
+        "1800.00",
+        "1800.00",
+        "91.8%"
+      ],
+      [
+        "游客接待",
+        1,
+        "160.00",
+        "160.00",
+        "8.2%"
+      ]
+    ],
+    "charts": [],
+    "visible": true,
+    "error": false
+  },
+  "mainPID": 2873590,
+  "ingestPID": 300963,
+  "nginxPID": 4328,
+  "quartzPID": 2604,
+  "missingCredentialStatus": 401,
+  "tests": {
+    "goTest": true,
+    "goVet": true,
+    "frontendTypecheck": true,
+    "frontendBuild": true,
+    "liveSourceOrderCreation": false,
+    "liveRefund": false
+  }
+}
