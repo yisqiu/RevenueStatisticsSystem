@@ -1,0 +1,23 @@
+[Unit]
+Description=Revenue guide orders ingestion from DataMiddlePlatform
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=revenuestatistics
+Group=revenuestatistics
+WorkingDirectory=/data/RevenueStatisticsSystem/releases/20261022-guide-push
+ExecStart=/data/RevenueStatisticsSystem/releases/20261022-guide-push/revenuestatistics
+Environment=LISTEN_ADDR=127.0.0.1:8128
+Environment=GUIDE_INGEST_ONLY=1
+Environment=DM_DSN_FILE=/data/RevenueStatisticsSystem/config/dm-dsn
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

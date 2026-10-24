@@ -185,6 +185,7 @@ func main() {
 	mux.HandleFunc("/api/auth/logout", a.logout)
 	mux.HandleFunc("/api/health", a.health)
 	mux.HandleFunc("/api/ingest", a.ingest)
+	mux.HandleFunc("/api/ingest/guide", a.guideIngest)
 	mux.HandleFunc("/api/", a.authorized(a.api))
 	static := env("STATIC_DIR", "../frontend/apps/web-antd/dist")
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -215,6 +216,10 @@ func main() {
 		}
 	}()
 	srv := &http.Server{Addr: env("LISTEN_ADDR", "127.0.0.1:8127"), Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if env("GUIDE_INGEST_ONLY", "") == "1" && r.URL.Path != "/api/ingest/guide" && r.URL.Path != "/api/health" {
+			http.NotFound(w, r)
+			return
+		}
 		w.Header().Set("X-Content-Type-Options", "nosniff")
 		w.Header().Set("X-Frame-Options", "SAMEORIGIN")
 		w.Header().Set("Referrer-Policy", "same-origin")
