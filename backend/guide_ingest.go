@@ -32,6 +32,9 @@ type guideImport struct {
 
 func normalizeGuide(row guidePushRow) (guideImport, error) {
 	var out guideImport
+	if strings.TrimSpace(row.ReceptionType) == "" {
+		return out, errors.New("接待类型不能为空")
+	}
 	if row.OrderID == "" || row.SourceID != "gm-order-"+row.OrderID || len(row.SourceID) > 100 || len([]rune(row.OrderNo)) > 100 || len([]rune(row.ReceptionType)) > 100 {
 		return out, errors.New("来源订单编号或接待类型无效")
 	}
@@ -50,18 +53,22 @@ func normalizeGuide(row guidePushRow) (guideImport, error) {
 	if err != nil || updated.Year() < 2000 || updated.Year() > 2100 {
 		return out, errors.New("源数据更新时间无效")
 	}
-	record := Record{Module: "guide", Date: row.BusinessDate, Category: "讲解员接待", Quantity: 1, Amount: row.PayAmount, Visitors: visitors, Source: "数据中台同步", Note: "来源订单：" + row.OrderNo + "；接待类型：" + row.ReceptionType}
+	record := Record{Module: "guide", Date: row.BusinessDate, Category: row.ReceptionType, Quantity: 1, Amount: row.PayAmount, Visitors: visitors, Source: "数据中台同步", Note: "来源订单：" + row.OrderNo + "；接待类型：" + row.ReceptionType}
 	if err = validateRecord(&record); err != nil {
 		return out, err
 	}
 	record.Amount = money(record.Cents)
 	out = guideImport{SourceID: row.SourceID, UpdatedAt: updated.Format("2006-01-02 15:04:05.000000"), Record: record, Active: row.Status == "completed" && pending == 0}
 	// Include the source status so a same-version state change is rejected, not silently lost.
+	// Preserve existing source hashes when only the local category mapping changes.
+	// Reception type remains covered by Note in both hash formats.
+	hashRecord := record
+	hashRecord.Category = "讲解员接待"
 	b, _ := json.Marshal(struct {
 		Record  Record
 		Status  string
 		Pending int
-	}{record, row.Status, pending})
+	}{hashRecord, row.Status, pending})
 	out.Hash = hashed(string(b))
 	return out, nil
 }

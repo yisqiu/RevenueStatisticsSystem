@@ -28,6 +28,44 @@ func TestGuideImportRevenueAndReversal(t *testing.T) {
 	}
 }
 
+func TestGuideImportKeepsReceptionCategory(t *testing.T) {
+	for _, reception := range []string{"游客接待", "团队接待", "公务接待"} {
+		row := guideFixture()
+		row.ReceptionType = reception
+		got, err := normalizeGuide(row)
+		if err != nil || got.Record.Category != reception || !strings.Contains(got.Record.Note, "接待类型："+reception) {
+			t.Fatalf("接待类型未保留: %s %+v %v", reception, got, err)
+		}
+	}
+}
+
+func TestGuideReceptionHashCompatibility(t *testing.T) {
+	row := guideFixture()
+	current, err := normalizeGuide(row)
+	if err != nil {
+		t.Fatal(err)
+	}
+	legacyRecord := current.Record
+	legacyRecord.Category = "讲解员接待"
+	b, _ := json.Marshal(struct {
+		Record  Record
+		Status  string
+		Pending int
+	}{legacyRecord, row.Status, 0})
+	if guideVersionAction(current.UpdatedAt, hashed(string(b)), current) != "duplicate" {
+		t.Fatal("已有来源版本的重复推送应保持幂等")
+	}
+	row.ReceptionType = "团队接待"
+	changed, _ := normalizeGuide(row)
+	if guideVersionAction(current.UpdatedAt, current.Hash, changed) != "conflict" {
+		t.Fatal("同一版本篡改接待类型应拒绝")
+	}
+	changed.UpdatedAt = "2026-10-22 12:00:01.000000"
+	if guideVersionAction(current.UpdatedAt, current.Hash, changed) != "apply" {
+		t.Fatal("更新版本的接待类型应正常同步")
+	}
+}
+
 func TestGuideImportStaleDuplicateAndConflictingVersions(t *testing.T) {
 	current, _ := normalizeGuide(guideFixture())
 	if guideVersionAction(current.UpdatedAt, current.Hash, current) != "duplicate" {
@@ -52,6 +90,8 @@ func TestGuideImportStaleDuplicateAndConflictingVersions(t *testing.T) {
 
 func TestGuideImportRejectsInvalidRows(t *testing.T) {
 	for _, mutate := range []func(*guidePushRow){
+		func(r *guidePushRow) { r.ReceptionType = "" },
+		func(r *guidePushRow) { r.ReceptionType = "   " },
 		func(r *guidePushRow) { r.SourceID = "another-order" },
 		func(r *guidePushRow) { r.Status = "paid" },
 		func(r *guidePushRow) { r.VisitorCount = "-1" },

@@ -30,8 +30,13 @@ const canWrite=computed(()=>isSuper.value || (userStore.userInfo?.permissions as
 const canManageIntegration=computed(()=>isSuper.value || (userStore.userInfo?.permissions as string[]|undefined)?.includes('Integration.Manage'));
 const modules=computed(()=>data.value.modules.filter(m=>m.enabled===1));
 const filteredModules=computed(()=>modules.value.filter(m=>!search.value||[m.name,m.desc].some(s=>s.includes(search.value))));
-const module=computed(()=>modules.value.find(m=>route.path==='/module/'+m.key));
-const titles:Record<string,string[]>={wenchuang:['文创产品销售趋势','品类结构占比','各品类销售明细'],naicha:['饮品销售趋势','产品结构占比','各产品线销售明细'],ticket:['门票营收趋势','票种结构占比','各票种售票明细'],hanfu:['汉服服务营收趋势','服务结构占比','各服务项目明细'],guide:['讲解服务营收趋势','服务结构占比','各服务类型明细'],bus:['游览车营收趋势','线路结构占比','各线路运营明细'],hotel:['住宿营收趋势','房型结构占比','各住宿类型明细'],park:['停车营收趋势','场站结构占比','各停车场收费明细'],online:['线上营收趋势','渠道结构占比','各渠道销售明细']};
+const module=computed(()=>{
+ const m=modules.value.find(m=>route.path==='/module/'+m.key);
+ if(!m||m.key!=='guide')return m;
+ const total=m.rows.reduce((sum,row)=>sum+Number(row[2]),0);
+ return {...m,cols:['接待类型',...m.cols.slice(1)],structLabels:m.rows.map(row=>String(row[0])),struct:Object.fromEntries(m.rows.map(row=>[String(row[0]),total?Number(row[2])/total*100:0]))};
+});
+const titles:Record<string,string[]>={wenchuang:['文创产品销售趋势','品类结构占比','各品类销售明细'],naicha:['饮品销售趋势','产品结构占比','各产品线销售明细'],ticket:['门票营收趋势','票种结构占比','各票种售票明细'],hanfu:['汉服服务营收趋势','服务结构占比','各服务项目明细'],guide:['讲解服务营收趋势','接待类型占比','各接待类型明细'],bus:['游览车营收趋势','线路结构占比','各线路运营明细'],hotel:['住宿营收趋势','房型结构占比','各住宿类型明细'],park:['停车营收趋势','场站结构占比','各停车场收费明细'],online:['线上营收趋势','渠道结构占比','各渠道销售明细']};
 const ranked=computed(()=>[...filteredModules.value].sort((a,b)=>b.value-a.value));
 const period=computed(()=>({day:'本日',month:'本月',year:'本年'}[range.value]||'本月'));
 const moduleRows=computed(()=>module.value?.rows.filter(r=>!search.value||r.some(v=>String(v).includes(search.value)))||[]);
